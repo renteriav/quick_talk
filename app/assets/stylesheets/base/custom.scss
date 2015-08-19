@@ -1,0 +1,62 @@
+/* Only demo */
+@media (max-width: 1000px) {
+  .welcome-message {
+    display: none;
+  }
+}
+
+.nohover, .nohover:hover {
+  color: inherit !important;
+}
+
+.navbar {
+  margin-bottom: 0 !important;
+
+  .submit-search-cust {
+    position: block;
+    float: left;
+    margin: 13px 0 0 13px;
+  }
+}
+#top-search {
+  float: left;
+}
+
+/* NOTICES AND ALERTS */
+.info, .notice, .alert2 {
+  padding: 10px;
+  margin: 34px auto 13px auto;
+  border: 1px solid transparent;
+  font-style: italic;
+  text-align: center;
+  width: 34%;
+  color: #fff;
+  border-radius: 3px;
+}
+.info { background: $lazur; }
+.notice { background: $yellow; }
+.alert2 { background: $red; }
+.fadeout { display: block; }
+
+/* DISABLED THINGS */
+.gray-out {
+  background: #eee !important;
+}
+
+/* TABLE OVERRIDES */
+
+table {
+  td {
+    vertical-align: middle !important;
+  }
+}
+
+
+/* NOTICES */
+.notices {
+  display: block;
+  position: absolute;
+  top: 55px;
+  left: 50%;
+  margin-left: -233px;
+}

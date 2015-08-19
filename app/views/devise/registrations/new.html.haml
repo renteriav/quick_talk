@@ -1,0 +1,24 @@
+.row.flash-notice
+  = render partial: "shared/notices"
+.row
+  .login-box.text-center.loginscreen.animated.fadeInDown
+    %div
+      %h2 Sign Up
+      %p
+        To get started, enter your email below<br />and choose a password.
+      = form_for(resource, as: resource_name,url: registration_path(resource_name),html: {id: "signup-form"}) do |f|
+        =#hidden_field_tag :share_token, "#{@share_token}"
+        = devise_error_messages!
+        .form-group
+          %h4
+            %strong 
+              Login Information
+        .form-group
+          =f.email_field :email, placeholder: 'Email', class: 'form-control', required: :true
+        .form-group
+          .row
+            .col-md-6
+              =f.password_field :password, placeholder: 'Password', required: :true, class: 'form-control', id: "pass"
+            .col-md-6        
+              =f.password_field :password_confirmation, placeholder: 'Confirm Password', required: :true, class: 'form-control', id:"pass2"
+        =f.submit 'Sign Up', class: 'btn btn-primary block full-width m-b'

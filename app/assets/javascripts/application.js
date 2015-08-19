@@ -1,0 +1,13 @@
+//= require bootstrap
+//= require metisMenu/jquery.metisMenu.js
+//= require pace/pace.min.js
+//= require inspinia.js
+//= require binaryajax
+//= require validate/jquery.validate.min
+//= require validate/additional-methods
+//= require exif
+//= require canvasResize
+//= require jquery-fileupload/basic
+//= require jquery
+//= require jquery_ujs
+//= require_tree .

@@ -1,0 +1,32 @@
+@media(min-width: 481px) {
+  p.qb-index{
+    font-size: 19px;
+  }
+}
+
+@media(max-width: 480px) {
+  p.qb-index{
+    font-size: 15px;
+  }
+}
+
+.qb-btn-success {
+  background-color: #31a039;
+  border-color: #31a039;
+  color: white;
+}
+
+.qb-btn-success:hover, .qb-btn-success:focus, .qb-btn-success:active, .qb-btn-success.active, .open .dropdown-toggle.btn-success {
+  background-color: #3db746 !important;
+  border-color: #3db746 !important;
+  color: white !important;
+}
+
+.qb-btn-success:active, .qb-btn-success.active, .open .dropdown-toggle.qb-btn-success {
+  background-image: none;
+}
+
+.qb-btn-success.disabled, .qb-btn-success.disabled:hover, .qb-btn-success.disabled:focus, .qb-btn-success.disabled:active, .qb-btn-success.disabled.active, .qb-btn-success[disabled], .qb-btn-success[disabled]:hover, .qb-btn-success[disabled]:focus, .qb-btn-success[disabled]:active, .qb-btn-success.active[disabled], fieldset[disabled] .qb-btn-success, fieldset[disabled] .qb-btn-success:hover, fieldset[disabled] .qb-btn-success:focus, fieldset[disabled] .qb-btn-success:active, fieldset[disabled] .qb-btn-success.active {
+  background-color: lighten(#31a039, 4%);
+  border-color: lighten(#31a039, 4%);
+}

@@ -1,0 +1,16 @@
+.row.flash-notice
+  = render partial: "shared/notices"
+.row
+  .login-box.text-center.loginscreen.animated.fadeInDown
+    %div
+      %h2 Change your password
+      %p
+        = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
+          = devise_error_messages!
+          = f.hidden_field :reset_password_token
+          .form-group
+            =f.password_field :password, placeholder: 'New password', class: 'form-control', required: :true
+          .form-group
+            =f.password_field :password_confirmation, placeholder: 'Confirm new password', class: 'form-control', required: :true
+          .form-group
+            =f.submit 'Change password', class: 'btn btn-primary block full-width m-b'

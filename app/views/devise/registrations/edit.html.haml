@@ -1,0 +1,31 @@
+.row
+  .login-box.text-center.loginscreen.animated.fadeInDown
+    %h2 Edit Login Info
+    = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, id: "edit-password-form" }) do |f|
+      = devise_error_messages!
+      .form-group.row
+        .col-md-12
+          =f.email_field :email, placeholder: 'Email', class: 'form-control', required: :true
+      .form-group.row
+        .col-md-12 
+          %i We need your current password
+          %br
+          %i to confirm your changes.
+          %br
+          = f.password_field :current_password, placeholder: 'Current Password', autocomplete: "off", class: 'form-control', required: :true
+      .form-group.row
+        .col-md-12
+          %i Leave it blank if you don't want
+          %br
+          %i to change it.
+          %br
+          =f.password_field :password, placeholder: 'New Password', autocomplete: "off", class: 'form-control', id: "pass"
+      .form-group.row
+        .col-md-12        
+          =f.password_field :password_confirmation, autocomplete: "off", placeholder: 'Confirm Password', class: 'form-control', id:"pass2"
+      .form-group.row
+        .col-sm-6
+          = link_to 'Back', edit_user_profile_path(current_user), class: 'btn btn-info block full-width m-b'
+        .col-sm-6
+          =f.submit 'Submit', class: 'btn btn-primary block full-width m-b'
+        

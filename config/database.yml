@@ -1,0 +1,17 @@
+development:
+  adapter: postgresql
+  #host: localhost
+  encoding: unicode
+  database: quick_talk_development
+  pool: 5
+  username: franciscorenteria
+  password:
+    
+test:
+  adapter: postgresql
+  host: localhost
+  encoding: unicode
+  database: quick_talk_test
+  pool: 5
+  username: franciscorenteria
+  password:
