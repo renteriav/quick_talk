@@ -1,0 +1,22 @@
+.row.border-bottom.white-bg
+  %nav.navbar.navbar-static-top{:role => "navigation"}
+    .navbar-header
+      %button.navbar-toggle.collapsed{"aria-controls" => "navbar", "aria-expanded" => "false", "data-target" => "#navbar", "data-toggle" => "collapse", :type => "button"}
+        %i.fa.fa-reorder
+      %a.navbar-brand{:href => "#"}
+        =image_tag "QTalkLogo_Aug2015.png", width: "100", height: "auto"
+    #navbar.navbar-collapse.collapse
+      %ul.nav.navbar-nav
+        %li{class: "#{is_active_controller('dashboard')}"}
+          = link_to root_path do
+            %i.fa.fa-th-large
+            %span.nav-label Dashboard
+        %li{class: "#{is_active_controller('brands')}"}
+          = link_to edit_user_brand_path(current_user.id) do
+            %i.fa.fa-paint-brush
+            %span.nav-label Brand Editor
+      %ul.nav.navbar-top-links.navbar-right
+        %li
+          = link_to destroy_user_session_path, method: :delete do
+            %i.fa.fa-sign-out
+            Sign out

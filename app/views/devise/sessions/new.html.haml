@@ -3,26 +3,24 @@
 .row
   .login-box.text-center.loginscreen.animated.fadeInDown
     %div
-      %h2 Welcome!
-      %p
-        If you have an existing account, sign in below.
+      =image_tag "QTalkLogo_Aug2015.png", width: "100%", height: "auto"
+      .spacer{style: "height:20px;"}
       = form_for(resource, as: resource_name, url: session_path(resource_name),html: {id: "login-form"}) do |f|
         .form-group
-          -email = cookies[:last_sign_in] || ""
-          %input#email.form-control{name: "#{resource_name}[email]", value: email, type: "text", placeholder: "Email", required: true}
+          -#email = cookies[:last_sign_in] || ""
+          %input#email.form-control{name: "#{resource_name}[email]", type: "email", placeholder: "Email", required: true}
         .form-group
           =f.password_field :password, placeholder: 'Password', required: :true, class: 'form-control',id:'password'
         .form-group
           .row
-            .col-md-5
+            .col-xs-6.text-left
               - if devise_mapping.rememberable?
-                .checkbox
-                  %label
-                    = f.check_box :remember_me
+                .checkbox.checkbox-success
+                  = f.check_box :remember_me
+                  %label.white-font
                     Remember Me
-            .col-md-2
-            .col-md-5{style:"top:10px;"}
-              = link_to "Forgot Password?", new_password_path(resource_name)
+            .col-xs-6.margin-10.text-right
+              = link_to "Forgot Password?", new_password_path(resource_name), class: "white-font"
         .form-group
-          =f.submit 'Sign In', class: 'btn btn-primary block full-width m-b'
+          =f.submit 'Sign In', class: 'btn btn-primary block full-width'
        

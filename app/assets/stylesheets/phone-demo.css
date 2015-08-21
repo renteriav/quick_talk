@@ -1,0 +1,239 @@
+.app-studio-container a:hover.btn-info{
+  color: white !important;
+}
+
+div#phone-demo-brand{
+	padding:0px;
+	background-color: transparent;
+	width: 100%;
+	height: auto;
+	min-height: 75px;
+}
+
+div#description-box{
+  padding-top: 5px;
+  padding-left: 3px;
+	margin-top: 22px;
+	background-color: #6abbdb;
+	height:180px;
+}
+div#code-container{
+	margin: 100px 20px 0 20px;
+}
+div#code-input{
+	padding: 10px;
+	text-align: left;
+	background-color: #aaa;
+	height:40px;
+	border: #4eb3f0 solid 2px;
+	border-radius: 10px;
+}
+.phone{
+	max-width:175px;
+	margin:20px;
+}
+div#mic{
+  background: transparent url("microphoneWelcome.png") center no-repeat;
+  background-size: auto 32px;
+  position: absolute;
+	height: 32px;
+	width: 32px;
+  bottom: 10px;
+  left: 10px;
+}
+
+div#nuance-logo{
+	color: #FFF;
+	font-size: 7px;
+	background: transparent url("nuance-logo.gif") center no-repeat;
+	background-size: 80px auto;
+	height: 40px;
+	width: 100%;
+	position: absolute;
+	bottom: 0px;
+}
+div#log-out-button{
+	background: transparent url("signouticon.png") center no-repeat;
+	background-size: 30px auto;
+	height: 30px;
+	width: 30px;
+	position: absolute;
+	bottom: 10px;
+  left: 185px;
+}
+div#phone-demo-link-buttons{
+	height: 10px;
+	color: #fff;
+  padding: 0px;
+}
+div#phone-demo-link-buttons > div{
+	background-color: #6abbdb;
+	font-size: 13px;
+  width: 73px;
+	font-family: helvetica;
+	font-weight: 300; 
+  display: inline-block; 
+  padding:4px; 
+}
+.disabled-link{
+    opacity: 0.6;
+}
+
+#phone-demo-phone{
+  width: 74px !important;
+  margin-left:3px;
+  margin-right:3px;
+}
+
+div#phone-demo-buttons{
+	margin-top: 10px;
+	height: 32px;
+	color: #fff;
+  margin-left:10px;
+}
+.input-text{
+color: black;
+background: white;
+}
+
+div#phone-demo-buttons > div{
+	background: #66b5dd;
+	padding:4px;
+	font-size: 17px;
+	font-family: helvetica;
+	font-weight: 300;  
+  border: solid 1px white;
+  border-radius: 5px;
+}
+div#phone-demo-submit{
+	height: 100%;
+	width: 135px;
+	display: inline-block; 
+}
+div#phone-demo-share{
+	height: 100%;
+	margin-left: 4px;
+	width: 64px;
+	display: inline-block;
+}
+
+.cream-bg{
+	background-color: #f3f3f4;
+}
+div.upload-preview{
+	height: 85px;
+	margin-top: 30px;
+	margin-bottom: 75px;
+}
+div.upload-preview img{
+	max-height: 85px;
+	max-width: 160px;
+}
+
+div.avatar-upload-preview{
+	height: 130px;
+	margin-top: 10px;
+	margin-bottom: 50px;
+}
+div.avatar-upload-preview img{
+	height: 100%;
+	width: auto;
+}
+
+div.iphone-logo-preview{
+  margin: 5px 0 5px 0;
+}
+div.iphone-logo-preview img{
+	max-height: 30px;
+	max-width: 120px;
+	z-index: 999;
+	position: relative;
+}
+
+div.nav-logo-preview img{
+  margin: 5px 0 10px 0;
+}
+div.nav-logo-preview img{
+	max-height: 50px;
+  height: auto;
+  width: auto;
+	max-width: 170px;
+}
+
+div#phone-demo-title{
+  padding-left: 0px;
+  padding-right: 10px;
+}
+div#phone-demo-title > div{
+  padding: 0px !important;
+  margin-bottom: 0px;
+  margin-left: 3px;
+  font-family: "Helvetica neue";
+  font-weight: 300;
+  overflow: hidden;
+  max-height:18px;
+  min-height:18px;
+  min-width: 1px;
+  max-width: 156px;
+}
+  
+div.iphone-logo-preview p{
+  margin-top: 10px;
+	font-size: 15px;
+	font-family: "Helvetica Neue" Helvetica;
+}
+div.iphone-avatar-preview img{
+	border-radius: 50%;
+	height: 36px;
+	width: 36px;
+	margin-top:0px;
+}
+
+div.iphone-avatar-preview{
+	display: inline-block;
+	z-index: 998;
+  padding: 0 10px !important;
+}
+
+div.info-form, .modal div.info-form input[type="text"]{
+	height:40px;
+	padding:0px 15px;
+  color: #4D4D4D;
+  margin-bottom: 10px;
+}
+
+div.header{
+	height:70px;
+	padding:20px 15px;
+  color: #4D4D4D;
+  margin-bottom:50px;
+}
+
+div.header > input{
+  height: 50px !important;
+  padding: 0 35px;
+  font-size: 30px;
+  border-radius: 10px;
+}
+
+div.header > label{
+  color: white;
+  font-size: 20px;
+}
+div#avatar-title-container{
+	top: 0px;
+}
+
+.bottom-fixed{
+  bottom: -50px;
+  position: relative;
+}
+
+div#phone-demo-ui{
+  height: 300px;
+  width: 100%;
+  overflow: hidden;
+  left: 0;
+  position: relative;
+  margin-top: 7px;
+}

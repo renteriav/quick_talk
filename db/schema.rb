@@ -11,10 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150818171326) do
+ActiveRecord::Schema.define(version: 20150820162422) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "brands", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "profile_image"
+    t.string   "logo_image"
+    t.string   "company_name"
+    t.string   "brand_phone"
+    t.string   "brand_email"
+    t.string   "brand_website"
+    t.string   "line_one"
+    t.string   "line_two"
+    t.string   "keyword"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "brands", ["user_id"], name: "index_brands_on_user_id", using: :btree
 
   create_table "opro_auth_grants", force: :cascade do |t|
     t.string   "code"
@@ -71,6 +88,7 @@ ActiveRecord::Schema.define(version: 20150818171326) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.integer  "roles_mask",             default: 4
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

@@ -3,26 +3,15 @@
 .row
   .login-box.text-center.loginscreen.animated.fadeInDown
     %div
-      %h2 Reset Password
-      %p
-        -if params[:sms]
-          Enter your phone number and we&rsquo;ll message you instructions for resetting your password.
-          = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
-            .form-group
-              =f.phone_field :phone, placeholder: 'Phone number', class: 'phone-field form-control', required: :true
-            .form-group
-              .row
-                = link_to "Use email instead", new_password_path(resource_name)
-            .form-group
-              =f.submit 'Send reset instructions', class: 'btn btn-primary block full-width m-b'
-        -else
-          Enter your email and we&rsquo;ll send you instructions for resetting your password.
-          = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
-            .form-group
-              =f.text_field :email, placeholder: 'Email', class: 'form-control', required: :true
-            .form-group
-              .row
-                = link_to "No email? Use phone instead", new_password_path(resource_name, sms: true)
-            .form-group
-              =f.submit 'Send reset instructions', class: 'btn btn-primary block full-width m-b'
+      %h2.white-font Reset Password
+      %p.white-font
+        Enter your email and we&rsquo;ll send you instructions for resetting your password.
+        = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+          .form-group
+            =f.text_field :email, placeholder: 'Email', class: 'form-control', required: :true
+
+          .form-group
+            =f.submit 'Send reset instructions', class: 'btn btn-primary btn-block'
+          .form-group
+            =link_to 'Back To Sign In', new_user_session_path, class: 'white-font'
        

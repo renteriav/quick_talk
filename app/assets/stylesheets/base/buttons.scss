@@ -39,14 +39,14 @@
 }
 
 .btn-primary {
-  background-color: $navy;
-  border-color: $navy;
+  background-color: #31a039;
+  border-color: #31a039;
   color: white;
 }
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary {
-  background-color: darken($navy, 3%);
-  border-color: darken($navy, 3%);
+  background-color: darken(#31a039, 3%);
+  border-color: darken(#31a039, 3%);
   color: white;
 }
 

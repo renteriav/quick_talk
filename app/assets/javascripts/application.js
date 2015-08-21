@@ -1,3 +1,4 @@
+//= require jquery_ujs
 //= require bootstrap
 //= require metisMenu/jquery.metisMenu.js
 //= require pace/pace.min.js
@@ -5,9 +6,10 @@
 //= require binaryajax
 //= require validate/jquery.validate.min
 //= require validate/additional-methods
+//= require jsTooltipster/jquery.tooltipster.min
 //= require exif
 //= require canvasResize
 //= require jquery-fileupload/basic
-//= require jquery
-//= require jquery_ujs
-//= require_tree .
+//= require brand_uploader
+//= require waitMe
+//= require sweetalert

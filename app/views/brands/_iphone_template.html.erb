@@ -1,0 +1,50 @@
+		
+			<div id="phone-demo-screen">
+				<div id="phone-demo-brand">
+					<div class="logo-preview iphone-logo-preview  col-xs-12 text-center">
+                        <% if !@brand.logo_image_url.nil? %>
+    					    <%= image_tag @brand.logo_image_url :mobile %>
+                        <% else %>
+                            <h3 id="company-name" style="white-space: nowrap;overflow: hidden; text-overflow: ellipsis;"><%= @brand.company_name %></h3>
+                        <% end%>
+					</div>
+					<div class="avatar-preview iphone-avatar-preview col-xs-3">
+	    					<%= image_tag @brand.profile_image_url :small unless @brand.profile_image.nil? %>
+					</div>
+					<div id="phone-demo-title" class="col-xs-9">
+						<div><span id="phone-preview-line-one"><%= @brand.line_one %></span></div>
+                        <div><span id="phone-preview-line-two"><%= @brand.line_two %></span></div>
+					</div><!-- phone-demo-title -->
+				</div> <!-- /#phone-demo-brand -->
+				<div id="phone-demo-ui">
+					<div id="phone-demo-link-buttons">
+						<div id="phone-demo-website" class="text-center">
+							<span>Website</span>
+						</div><!--
+					 --><div id="phone-demo-phone" class="text-center">
+							<span>Phone</spanp>
+					    </div><!--
+					--><div id="phone-demo-email" class="text-center">
+							<span>Email</span>
+					   </div>
+					</div>
+					<div id="description-box">
+                        <span>Description</span>
+					</div>
+					<div id="phone-demo-buttons">
+						<div id="phone-demo-submit" class="text-center">
+							<p>Submit!</p>
+						</div>
+						<div id="phone-demo-share" class="text-center">
+							<p>Share</p>
+						</div>
+					</div>
+				</div> <!-- /#phone-demo-ui -->
+                <div id="mic">
+                </div>
+				<!-- <div id="nuance-logo"> -->
+				<!--	<p class="text-center">Speech powered by</p></div>-->
+				 <!-- /#nuance-logo -->
+                <div id="log-out-button">
+                </div>
+			</div> <!-- /#phone-demo-screen -->

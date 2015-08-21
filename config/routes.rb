@@ -1,8 +1,17 @@
 Rails.application.routes.draw do
-  root to: 'quickbooks#index'
+  root to: 'dashboard#index'
   mount_opro_oauth
   devise_for :users
   post 'users/sign_up', to: 'users#sign_up'
+  
+  resources :users do
+    resource :brand do
+      delete :delete_logo, to: 'brands#delete_logo'
+      delete :delete_profile_image, to: 'brands#delete_profile_image'
+    end
+  end
+  
+  get 'dashboard', to: 'dashboard#index'
   
   scope :quickbooks do
     get '/', to: 'quickbooks#index', as: :quickbooks_index
