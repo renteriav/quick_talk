@@ -1,3 +1,20 @@
+div#phone-demo-container{
+	background: transparent url("iphone-6-white.png") 20px 0 no-repeat;
+	background-size: 300px auto;
+	min-height: 620px;
+}
+
+div#phone-demo-screen{
+	padding-top:10px;
+	left: 22px;
+	top: 72px;
+  background: #0060BF;
+	color: #f0f0f0;
+	width: 265px;
+	height: 466px;
+	position:relative;
+}
+
 .app-studio-container a:hover.btn-info{
   color: white !important;
 }

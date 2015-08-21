@@ -13,5 +13,9 @@
           .form-group
             =f.submit 'Send reset instructions', class: 'btn btn-primary btn-block'
           .form-group
-            =link_to 'Back To Sign In', new_user_session_path, class: 'white-font'
+            - if mobile_device?
+              %a.white-font{href: "inapp://capture", style: "font-size: 23px;"}Back To Sign In
+              -puts "mobile"
+            -else
+              =link_to 'Back To Sign In', new_user_session_path, class: 'white-font'
        
