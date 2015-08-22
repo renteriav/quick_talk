@@ -9,9 +9,6 @@ class Ability
       can :manage, :all
     elsif user.is_accountant?
       can :manage, Brand
-      can :read, Dashboard
-    else
-      can :read, Dashboard
     end
   end
 

@@ -11,7 +11,7 @@
 
 }
 div#phone-demo-container{
-	background: transparent url("iphone-6-white.png") 0 0 no-repeat;
+	background: transparent url("/assets/iphone-6-white.png") 0 0 no-repeat;
 	background-size: 300px auto;
 	min-height: 620px;
   width:300px;

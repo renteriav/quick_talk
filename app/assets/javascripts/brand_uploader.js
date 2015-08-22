@@ -44,7 +44,7 @@ $(document).ready(function(){
     var c = String.fromCharCode(e.which)
     if(c.match(/[ -~]/)){
       
-      if($('#phone-preview-line-one').width() >= 144 ){
+      if($('#phone-preview-line-one').width() >= 133 ){
      //alert($('#phone-preview-line-one').width());
       var numberOfChar = $(this).val().length
       //alert(numberOfChar);
@@ -61,7 +61,7 @@ $(document).ready(function(){
     var c = String.fromCharCode(e.which)
     if(c.match(/[ -~]/)){
       
-      if($('#phone-preview-line-two').width() >= 144 ){
+      if($('#phone-preview-line-two').width() >= 133 ){
      //alert($('#phone-preview-line-one').width());
       var numberOfChar = $(this).val().length
       //alert(numberOfChar);
