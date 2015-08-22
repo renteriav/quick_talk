@@ -1,0 +1,50 @@
+#phone-demo-screen
+  #phone-demo-brand
+    .logo-preview.iphone-logo-preview.col-xs-12.editable{:style => "padding:0;"}
+      - if !@brand.logo_image_url.nil?
+        = image_tag @brand.logo_image_url :mobile
+      - else
+        %h3#company-name{:style => "white-space: nowrap;overflow: hidden; text-overflow: ellipsis;"}= @brand.company_name
+    .avatar-preview.iphone-avatar-preview.col-xs-2.col-xs-offset-2.editable
+      = image_tag @brand.profile_image_url :small unless @brand.profile_image.nil?
+    #phone-demo-title.col-xs-8.editable
+      %div
+        %span#phone-preview-line-one= @brand.line_one
+      %div
+        %span#phone-preview-line-two= @brand.line_two
+    / phone-demo-title
+  / /#phone-demo-brand
+  #phone-demo-ui
+    #phone-demo-link-buttons
+      #phone-demo-website.text-center.editable
+        = image_tag "qtalk_web_dashicon.png"
+      #phone-demo-phone.text-center.editable
+        = image_tag "qtalk_phone_dashicon.png"
+      #phone-demo-email.text-center.editable
+        = image_tag "qtalk_email_dashicon.png"
+      #phone-demo-share.text-center.editable
+        = image_tag "qtalk_share_dashicon.png"
+    #description-box
+      %strong Date:
+      %br
+      %strong Amount:
+      %span &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$0.00
+      %br
+      %strong Paye:
+      %br
+      %strong Method:
+      %br
+      %strong Category:
+      %br
+      %br
+      %strong Transaction Description:
+      %br
+      %span &nbsp;&nbsp;Description
+    #phone-demo-buttons
+      #phone-demo-talk.text-center.col-xs-3
+        = image_tag "qtalk_talk_dashicon.png"
+      #phone-demo-submit.text-center.col-xs-9
+        = image_tag "qtalk_submit_dashicon.png"
+  #log-out-button.fright
+    = image_tag "qtalk_signout_dashicon.png"
+/ /#phone-demo-screen

@@ -4,7 +4,7 @@
     %meta{content: "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
     %meta{charset: "utf-8"}/
     %meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}/
-    %title AutoKept
+    %title QuickTalk
     = stylesheet_link_tag params[:controller] if ::Rails.application.assets.find_asset("#{params[:controller]}.css")
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     / jQuery
@@ -19,8 +19,8 @@
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body.top-navigation.pace-done
-    #wrapper{class: "#{params[:controller]}.#{params[:action]}"}
-      #page-wrapper{class: "gray-bg #{@extra_class}"}
+    #wrapper{class: "#{params[:controller]}-#{params[:action]}"}
+      #page-wrapper{class: "#{@extra_class}"}
         = render 'layouts/topnavbar_2'
         = yield
         = #render 'layouts/footer'

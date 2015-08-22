@@ -1,5 +1,93 @@
 $(document).ready(function(){
   
+  $('.editable').hover(function(){
+    $(this).addClass('grey-border glow');
+    //$(this).animate({boxShadow: '0 0 30px #44f'});
+  });
+  $('.editable').mouseleave(function(){
+    $(this).removeClass('glow grey-border');
+  });
+  
+  $('#phone-demo-title').click(function(){
+    $('#misc-text-modal').modal('show');
+  });
+  
+  $('.logo-preview').click(function(){
+    $('#logo-modal').modal('show');
+  });
+  
+  $('.avatar-preview').click(function(){
+    $('#avatar-modal').modal('show');
+  });
+  
+  $('#phone-demo-website').click(function(){
+    $('#website-modal').modal('show');
+  });
+  
+  $('#phone-demo-phone').click(function(){
+    $('#phone-modal').modal('show');
+  });
+  
+  $('#phone-demo-email').click(function(){
+    $('#email-modal').modal('show');
+  });
+  
+  $('#phone-demo-share').click(function(){
+    $('#share-modal').modal('show');
+  });
+  
+  $('.done').click(function(){
+    $('.modal').modal('hide');
+  });
+  
+	$('#brand_line_one').keypress(function(e){
+    var c = String.fromCharCode(e.which)
+    if(c.match(/[ -~]/)){
+      
+      if($('#phone-preview-line-one').width() >= 144 ){
+     //alert($('#phone-preview-line-one').width());
+      var numberOfChar = $(this).val().length
+      //alert(numberOfChar);
+      $(this).prop('maxlength', numberOfChar);
+      //alert($(this).val().length);
+      }
+      else{
+      $(this).prop('maxlength', 30);
+      }
+    }
+	});
+  
+	$('#brand_line_two').keypress(function(e){
+    var c = String.fromCharCode(e.which)
+    if(c.match(/[ -~]/)){
+      
+      if($('#phone-preview-line-two').width() >= 144 ){
+     //alert($('#phone-preview-line-one').width());
+      var numberOfChar = $(this).val().length
+      //alert(numberOfChar);
+      $(this).prop('maxlength', numberOfChar);
+      //alert($(this).val().length);
+      }
+      else{
+      $(this).prop('maxlength', 40);
+      }
+    }
+	}); 
+  
+  $('#brand_line_one').keyup(function(){
+    $('#phone-preview-line-one').text($(this).val());
+  });
+  
+  $('#brand_line_two').keyup(function(){
+    $('#phone-preview-line-two').text($(this).val());
+  });
+  
+  $('#brand-name-input').keyup(function(){
+    $('.logo-preview > h3').text($(this).val());
+  });
+  
+  $('.phone-mask').mask('(999) 999-9999');
+  
   $.fn.previewImage = function (imgContainer) {
      	var preview = $(imgContainer);
 
@@ -18,7 +106,7 @@ $(document).ready(function(){
      	    });
   };
   
-  $('#brand_image_header').previewImage(".logo-preview");
+  $('#brand_logo_image').previewImage(".logo-preview");
 	
 	$('#on-board').fileupload({
 
@@ -115,7 +203,7 @@ acceptFileTypes: /(\.|\/)(gif|jpe?g|png|bmp|JPG)$/i,
 	});
 
 	
-	$('#brand_image_avatar').change(function(e) {
+	$('#brand_profile_image').change(function(e) {
 		    var file = e.target.files[0];
   			var fileType = file.name.split('.').pop(), allowedTypes = 'jpeg, jpg, JPG, png, gif';
   			 if (allowedTypes.indexOf(fileType)<0){
@@ -146,4 +234,21 @@ acceptFileTypes: /(\.|\/)(gif|jpe?g|png|bmp|JPG)$/i,
 		    });
 		  }
 		});
+    
+    //Tooltipster plugin
+    $('#phone-demo-container').tooltipster({
+      content: $('<center class="lead" style="padding:20px;">Click on any branding item to edit it.</center>'),
+      theme: 'tooltipster-shadow',
+      arrow: false,
+      offsetY: -260,
+      maxWidth: 250,
+      timer: 3000,
+      functionAfter: function(origin){
+        $('#phone-demo-container').tooltipster('disable');
+      }
+    });
+    $('#phone-demo-container').tooltipster('show');
+    $('#phone-demo-container').hover(function(){
+      $('#phone-demo-container').tooltipster('hide');
+    });
 });  

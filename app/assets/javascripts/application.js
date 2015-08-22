@@ -13,3 +13,5 @@
 //= require brand_uploader
 //= require waitMe
 //= require sweetalert
+//= require shadow_animation
+//= require mask

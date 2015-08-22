@@ -1,12 +1,25 @@
+.gradient-gray{
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#d0e4f7+0,73b1e7+24,0a77d5+50,539fe1+79,87bcea+100;Blue+Pipe+%231 */
+  background: rgb(208,228,247); /* Old browsers */
+  background: -moz-linear-gradient(top,  rgba(208,228,247,1) 0%, rgba(115,177,231,1) 24%, rgba(10,119,213,1) 50%, rgba(83,159,225,1) 79%, rgba(135,188,234,1) 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(208,228,247,1)), color-stop(24%,rgba(115,177,231,1)), color-stop(50%,rgba(10,119,213,1)), color-stop(79%,rgba(83,159,225,1)), color-stop(100%,rgba(135,188,234,1))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  rgba(208,228,247,1) 0%,rgba(115,177,231,1) 24%,rgba(10,119,213,1) 50%,rgba(83,159,225,1) 79%,rgba(135,188,234,1) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  rgba(208,228,247,1) 0%,rgba(115,177,231,1) 24%,rgba(10,119,213,1) 50%,rgba(83,159,225,1) 79%,rgba(135,188,234,1) 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  rgba(208,228,247,1) 0%,rgba(115,177,231,1) 24%,rgba(10,119,213,1) 50%,rgba(83,159,225,1) 79%,rgba(135,188,234,1) 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  rgba(208,228,247,1) 0%,rgba(115,177,231,1) 24%,rgba(10,119,213,1) 50%,rgba(83,159,225,1) 79%,rgba(135,188,234,1) 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d0e4f7', endColorstr='#87bcea',GradientType=0 ); /* IE6-9 */
+
+}
 div#phone-demo-container{
-	background: transparent url("iphone-6-white.png") 20px 0 no-repeat;
+	background: transparent url("iphone-6-white.png") 0 0 no-repeat;
 	background-size: 300px auto;
 	min-height: 620px;
+  width:300px;
+  margin: auto;
 }
 
 div#phone-demo-screen{
-	padding-top:10px;
-	left: 22px;
+	left: 18px;
 	top: 72px;
   background: #0060BF;
 	color: #f0f0f0;
@@ -24,15 +37,21 @@ div#phone-demo-brand{
 	background-color: transparent;
 	width: 100%;
 	height: auto;
-	min-height: 75px;
+	min-height: 95px;
 }
 
 div#description-box{
-  padding-top: 5px;
-  padding-left: 3px;
-	margin-top: 22px;
-	background-color: #6abbdb;
+  padding-top: 10px;
+  padding-left: 10px;
+	margin: 25px 20px 0px 20px;
+	background-color: white;
+  color: black;
 	height:180px;
+  border-radius: 5px;
+  font-size: 10px;
+}
+div#description-box span{
+  color: gray;
 }
 div#code-container{
 	margin: 100px 20px 0 20px;
@@ -49,89 +68,62 @@ div#code-input{
 	max-width:175px;
 	margin:20px;
 }
-div#mic{
-  background: transparent url("microphoneWelcome.png") center no-repeat;
-  background-size: auto 32px;
-  position: absolute;
-	height: 32px;
-	width: 32px;
-  bottom: 10px;
-  left: 10px;
-}
-
-div#nuance-logo{
-	color: #FFF;
-	font-size: 7px;
-	background: transparent url("nuance-logo.gif") center no-repeat;
-	background-size: 80px auto;
-	height: 40px;
-	width: 100%;
-	position: absolute;
-	bottom: 0px;
-}
 div#log-out-button{
-	background: transparent url("signouticon.png") center no-repeat;
-	background-size: 30px auto;
-	height: 30px;
-	width: 30px;
-	position: absolute;
-	bottom: 10px;
-  left: 185px;
+  margin-top: -14px;
+  margin-right:15px;
+}
+div#log-out-button > img{
+  width: 43px;
 }
 div#phone-demo-link-buttons{
-	height: 10px;
+	height: 45px;
 	color: #fff;
   padding: 0px;
+  margin-left:15px;
 }
 div#phone-demo-link-buttons > div{
-	background-color: #6abbdb;
 	font-size: 13px;
-  width: 73px;
 	font-family: helvetica;
 	font-weight: 300; 
   display: inline-block; 
   padding:4px; 
+  width: 22%;
 }
+
+div#phone-demo-website > img{
+  width:38px;
+}
+div#phone-demo-email > img, div#phone-demo-phone > img, div#phone-demo-share > img{
+  width:35px;
+}
+
 .disabled-link{
     opacity: 0.6;
 }
 
-#phone-demo-phone{
-  width: 74px !important;
-  margin-left:3px;
-  margin-right:3px;
-}
-
-div#phone-demo-buttons{
-	margin-top: 10px;
-	height: 32px;
-	color: #fff;
-  margin-left:10px;
-}
 .input-text{
 color: black;
 background: white;
 }
 
 div#phone-demo-buttons > div{
-	background: #66b5dd;
-	padding:4px;
-	font-size: 17px;
-	font-family: helvetica;
-	font-weight: 300;  
-  border: solid 1px white;
-  border-radius: 5px;
+  margin-top:13px;
 }
 div#phone-demo-submit{
-	height: 100%;
-	width: 135px;
 	display: inline-block; 
 }
-div#phone-demo-share{
-	height: 100%;
-	margin-left: 4px;
-	width: 64px;
+
+div#phone-demo-submit > img{
+  width:110px;
+  float:right;
+  margin-right:5px;
+}
+div#phone-demo-talk{
 	display: inline-block;
+}
+div#phone-demo-talk > img{
+	width:37px;
+  margin-left:4px;
 }
 
 .cream-bg{
@@ -158,7 +150,8 @@ div.avatar-upload-preview img{
 }
 
 div.iphone-logo-preview{
-  margin: 5px 0 5px 0;
+  width: 250px;
+  margin: 7px 0px 15px 7px;
 }
 div.iphone-logo-preview img{
 	max-height: 30px;
@@ -178,15 +171,19 @@ div.nav-logo-preview img{
 }
 
 div#phone-demo-title{
+  width: 150px;
   padding-left: 0px;
-  padding-right: 10px;
+  padding-right: 0px;
+  margin-left: 5px;
 }
 div#phone-demo-title > div{
-  padding: 0px !important;
   margin-bottom: 0px;
   margin-left: 3px;
   font-family: "Helvetica neue";
-  font-weight: 300;
+  letter-spacing: 1px;
+  font-size: 12px;
+  font-weight: 100;
+  padding-left: 0px;
   overflow: hidden;
   max-height:18px;
   min-height:18px;
@@ -209,7 +206,8 @@ div.iphone-avatar-preview img{
 div.iphone-avatar-preview{
 	display: inline-block;
 	z-index: 998;
-  padding: 0 10px !important;
+  padding: 0px !important;
+  width: 38px !important;
 }
 
 div.info-form, .modal div.info-form input[type="text"]{
@@ -247,10 +245,23 @@ div#avatar-title-container{
 }
 
 div#phone-demo-ui{
-  height: 300px;
+  height: 315px;
   width: 100%;
-  overflow: hidden;
   left: 0;
   position: relative;
   margin-top: 7px;
+}
+
+/* modals */
+
+#misc-text-modal .modal-dialog, #avatar-modal .modal-dialog{
+  margin-top: 260px;
+}
+
+#logo-modal .modal-dialog{
+  margin-top: 210px;
+}
+
+#website-modal .modal-dialog, #phone-modal .modal-dialog, #email-modal .modal-dialog, #share-modal .modal-dialog{
+  margin-top: 330px;
 }
