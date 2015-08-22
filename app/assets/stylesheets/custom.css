@@ -7,6 +7,8 @@
 }
 .glow {
     -webkit-animation: glow .4s infinite alternate;
+    -moz-animation: glow .4s infinite alternate;
+    animation: glow .4s infinite alternate;
 }
 
 @-webkit-keyframes glow {
