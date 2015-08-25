@@ -24,6 +24,7 @@ Rails.application.routes.draw do
     get :expense_categories, to: 'quickbooks#expense_categories', as: :quickbooks_expense_categories
     get :bank_accounts, to: 'quickbooks#bank_accounts', as: :quickbooks_bank_accounts
     get :vendors, to: 'quickbooks#vendors', as: :quickbooks_vendors
+    get :company_info, to: 'quickbooks#company_info', as: :quickbooks_company_info
   end
 
   # mobile uploader endpoint

@@ -1,4 +1,9 @@
 class QuickbooksController < ApplicationController
+  
+  rescue_from ::Exception, with: :error_occurred
+  rescue_from Quickbooks::AuthorizationFailure, with: :unauthorized
+
+
   allow_oauth!
   skip_before_filter :verify_authenticity_token
   before_action :authenticate_user!, except: [:authenticate, :oauth_callback]
@@ -10,18 +15,27 @@ class QuickbooksController < ApplicationController
   end
   
   def expense_categories
-    get_accounts
-    render :json => @expense_categories
+    if get_accounts
+      render_response(true, @expense_categories, 200)
+    else
+      render_response(false, 'There has been an error', 500)
+    end
   end
   
   def bank_accounts
-    get_accounts
-    render :json => @bank_accounts
+    if get_accounts
+      render_response(true, @bank_accounts, 200)
+    else
+      render_response(false, 'There has been an error', 500)
+    end
   end
   
   def vendors
-    get_vendors
-    render :json => @vendors
+    if get_vendors
+      render_response(true, @vendors, 200)
+    else
+      render_response(false, 'There has been an error', 500)
+    end
   end
   
   def authenticate
@@ -104,6 +118,23 @@ class QuickbooksController < ApplicationController
       end   
     end
       @vendors = Hash[@vendors.sort]
+  end
+  
+  def get_company_info
+    @qbo_client = current_user.qbo_client
+    service = Quickbooks::Service::CompanyInfo.new
+    service.access_token = set_qb_service
+    service.company_id = @qbo_client.realm_id
+    @company = service.query(nil, :page => 1, :per_page => 500).first
+    @company_name = @company.company_name
+  end
+  
+  def company_info
+    if get_company_info
+      render_response(true, @company_name, 200)
+    else
+      render_response(false, 'There has been an error', 500)
+    end
   end
  
   def upload(reference_id)
@@ -211,6 +242,29 @@ class QuickbooksController < ApplicationController
     secret = client.secret
     #oauth_client = OAuth::AccessToken.new($qb_oauth_consumer, session[:token], session[:secret])
     oauth_client = OAuth::AccessToken.new($qb_oauth_consumer, token, secret)
+  end
+  
+  protected
+  
+  def render_response success, message, status
+    output = {
+      success: success,
+      message: message,
+      status: status
+    }
+    return render json: output.as_json
+  end
+
+  def unauthorized(exception)
+    render_response(false, exception.message, 401)
+    #render json: {status: 401, error: exception.message}.to_json, status: 401
+    #return
+  end
+
+  def error_occurred(exception)
+    render_response(false, exception.message, 500)
+    #render json: {error: exception.message}.to_json, status: 500
+    #return
   end
   
 end
