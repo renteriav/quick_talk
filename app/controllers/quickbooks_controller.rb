@@ -50,6 +50,10 @@ class QuickbooksController < ApplicationController
       render action: "index"
     end
   end
+  
+  def disconnect
+    
+  end
 
   def payment_methods
     @qbo_client = current_user.qbo_client

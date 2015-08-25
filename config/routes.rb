@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   scope :quickbooks do
     get '/', to: 'quickbooks#index', as: :quickbooks_index
     get '/authenticate', to: 'quickbooks#authenticate', as: :quickbooks_authenticate
+    get '/disconnect', to: 'quickbooks#disconnect', as: :quickbooks_disconnect
     get :oauth_callback, to: 'quickbooks#oauth_callback'
     post :create_purchase, to: 'quickbooks#create_purchase'
     get :purchase, to: 'quickbooks#purchase'
