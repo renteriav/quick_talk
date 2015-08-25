@@ -1,3 +1,24 @@
+/*global styles */
+.qt-blue{
+  background-color:#0060BF;
+}
+
+.qt-green{
+  background-color:#31a039;
+}
+
+.grey-border{
+  -webkit-box-shadow:0px 0px 0px 3px grey;
+  -moz-box-shadow:0px 0px 0px 3px grey;
+  box-shadow:0px 0px 0px 3px grey;
+  cursor: pointer;
+}
+
+.margin-10{
+  margin-bottom:10px;
+  margin-top:10px;
+}
+
 .navbar-static-top {
   border-width: 0 px !important;
 }
@@ -5,9 +26,13 @@
 .white-font{
   color:white !important;
 }
+
+/* effects */
+
 .glow {
     -webkit-animation: glow .4s infinite alternate;
     -moz-animation: glow .4s infinite alternate;
+    -o-animation: glow .4s infinite alternate;
     animation: glow .4s infinite alternate;
 }
 
@@ -21,17 +46,20 @@
        -moz-box-shadow:0px 0px 0px 3px #FFFFCC;
     }
 }
+
+@-o-keyframes glow {
+    to {
+       -o-box-shadow:0px 0px 0px 3px #FFFFCC;
+    }
+}
+
 @keyframes glow {
     to {
        box-shadow:0px 0px 0px 3px #FFFFCC;
     }
 }
-.grey-border{
-  -webkit-box-shadow:0px 0px 0px 3px grey;
-  -moz-box-shadow:0px 0px 0px 3px grey;
-  box-shadow:0px 0px 0px 3px grey;
-  cursor: pointer;
-}
+
+/* form-styles */
 
 .login-box {
   height: 400px;
@@ -41,15 +69,6 @@
   z-index: 100;
 }
 
-.qt-blue{
-  background-color:#0060BF;
-}
-
-.qt-green{
-  background-color:#31a039;
-}
-
-.margin-10{
-  margin-bottom:10px;
-  margin-top:10px;
+.bar {
+    height: 18px;
 }

@@ -2,11 +2,15 @@
   #phone-demo-brand
     .logo-preview.iphone-logo-preview.col-xs-12.editable{:style => "padding:0;"}
       - if !@brand.logo_image_url.nil?
-        = image_tag @brand.logo_image_url :mobile
+        = image_tag @brand.logo_image.url :small
       - else
-        %h3#company-name{:style => "white-space: nowrap;overflow: hidden; text-overflow: ellipsis;"}= @brand.company_name
+        %h3#company-name
+          = @brand.company_name
     .avatar-preview.iphone-avatar-preview.col-xs-2.col-xs-offset-2.editable
-      = image_tag @brand.profile_image_url :small unless @brand.profile_image.nil?
+      - if @brand.profile_image_url.nil?
+        = image_tag 'user.png'
+      -else
+        = image_tag @brand.profile_image.url :small 
     #phone-demo-title.col-xs-8.editable
       %div
         %span#phone-preview-line-one= @brand.line_one

@@ -1,0 +1,8 @@
+$(document).ready(function(){
+  $('#avatar-modal').modal('hide');
+  var image_url = <%= raw image_url("user.png").to_json %>
+  
+  $('.avatar-preview img').remove();
+  $('.avatar-preview').append('<img></img>');
+  $('.avatar-preview > img').attr("src", image_url);
+});

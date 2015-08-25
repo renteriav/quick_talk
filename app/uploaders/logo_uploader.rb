@@ -30,7 +30,7 @@ class LogoUploader < CarrierWave::Uploader::Base
   # end
 
   # Create different versions of your uploaded files:
-   version :mobile do
+   version :small do
      process :resize_to_fit => [288, 34]
    end
 

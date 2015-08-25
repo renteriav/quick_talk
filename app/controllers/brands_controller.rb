@@ -10,7 +10,7 @@ class BrandsController < ApplicationController
     get_brand
     if !@brand.logo_image_url.nil?
       if @brand.logo_image_url.length > 0
-        @logo_image = @brand.logo_image_url :mobile
+        @logo_image = @brand.logo_image.url :small
       end
     else
       @logo_image = @brand.company_name
@@ -93,16 +93,29 @@ class BrandsController < ApplicationController
   def delete_logo
     @brand = Brand.find_by_id(params[:brand_id])
     @brand.remove_logo_image!
-    if @brand.save
-      redirect_to action: :edit
-    end 
+    respond_to do |format|
+      if @brand.save
+        format.js {render layout: false, action: 'delete_logo'}
+        format.html { render action: "edit" }
+      else
+        format.js {render layout: false, action: 'error'}
+        format.html { render action: "edit" }
+      end
+    end
   end
+  
   def delete_profile_image
     @brand = Brand.find_by_id(params[:brand_id])
     @brand.remove_profile_image!
-    if @brand.save
-      redirect_to action: :edit
-    end 
+    respond_to do |format|
+      if @brand.save
+        format.js {render layout: false, action: 'delete_profile_image'}
+        format.html { render action: "edit" }
+      else
+        format.js {render layout: false, action: 'error'}
+        format.html { render action: "edit" }
+      end
+    end
   end
 
   def destroy

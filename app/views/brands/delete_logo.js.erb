@@ -1,0 +1,8 @@
+$(document).ready(function(){
+  var companyName = <%= raw current_user.brand.company_name.to_json %>
+  $('#logo-modal').modal('hide');
+  $('.logo-preview img').remove();
+  $('.logo-preview h3').remove();
+  $('.logo-preview').append('<h3></h3>');
+  $('.logo-preview h3').text(companyName)
+});

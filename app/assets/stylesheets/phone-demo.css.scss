@@ -160,6 +160,15 @@ div.iphone-logo-preview img{
 	position: relative;
 }
 
+div.iphone-logo-preview h3{
+  font-size: 18px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 div.nav-logo-preview img{
   margin: 5px 0 10px 0;
 }

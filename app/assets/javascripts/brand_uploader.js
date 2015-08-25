@@ -2,39 +2,66 @@ $(document).ready(function(){
   
   $('.editable').hover(function(){
     $(this).addClass('grey-border glow');
-    //$(this).animate({boxShadow: '0 0 30px #44f'});
   });
   $('.editable').mouseleave(function(){
     $(this).removeClass('glow grey-border');
   });
   
   $('#phone-demo-title').click(function(){
+    $('#phone-demo-container').tooltipster('disable');
     $('#misc-text-modal').modal('show');
   });
+  $('#misc-text-modal').on('hidden.bs.modal', function () {
+      $('#phone-demo-container').tooltipster('enable');
+  })
   
   $('.logo-preview').click(function(){
+    $('#phone-demo-container').tooltipster('disable');
     $('#logo-modal').modal('show');
   });
+  $('#logo-modal').on('hidden.bs.modal', function () {
+      $('#phone-demo-container').tooltipster('enable');
+  })
   
   $('.avatar-preview').click(function(){
+    $('#phone-demo-container').tooltipster('disable');
     $('#avatar-modal').modal('show');
   });
+  $('#avatar-modal').on('hidden.bs.modal', function () {
+      $('#phone-demo-container').tooltipster('enable');
+  })
   
   $('#phone-demo-website').click(function(){
+    $('#phone-demo-container').tooltipster('disable');
     $('#website-modal').modal('show');
   });
+  $('#website-modal').on('hidden.bs.modal', function () {
+      $('#phone-demo-container').tooltipster('enable');
+  })
   
   $('#phone-demo-phone').click(function(){
+    $('#phone-demo-container').tooltipster('disable');
     $('#phone-modal').modal('show');
   });
+  $('#phone-modal').on('hidden.bs.modal', function () {
+      $('#phone-demo-container').tooltipster('enable');
+  })
   
   $('#phone-demo-email').click(function(){
+    $('#phone-demo-container').tooltipster('disable');
     $('#email-modal').modal('show');
   });
+  $('#email-modal').on('hidden.bs.modal', function () {
+      $('#phone-demo-container').tooltipster('enable');
+  })
   
   $('#phone-demo-share').click(function(){
+    $('#phone-demo-container').tooltipster('disable');
     $('#share-modal').modal('show');
   });
+  $('#share-modal').on('hidden.bs.modal', function () {
+      $('#phone-demo-container').tooltipster('enable');
+  })
   
   $('.done').click(function(){
     $('.modal').modal('hide');
@@ -242,13 +269,16 @@ acceptFileTypes: /(\.|\/)(gif|jpe?g|png|bmp|JPG)$/i,
       arrow: false,
       offsetY: -260,
       maxWidth: 250,
-      timer: 3000,
-      functionAfter: function(origin){
-        $('#phone-demo-container').tooltipster('disable');
-      }
+      timer: 3000
     });
+    
     $('#phone-demo-container').tooltipster('show');
-    $('#phone-demo-container').hover(function(){
+    
+    $('#phone-demo-container').mouseleave(function(){
+      $('#phone-demo-container').tooltipster('show');
+    });
+    
+    $('#phone-demo-container').mouseenter(function(){
       $('#phone-demo-container').tooltipster('hide');
     });
 });  
