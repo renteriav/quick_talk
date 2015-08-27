@@ -1,90 +1,62 @@
 module Api
   module V1
     class ShareController < ApplicationController
+      include Namer
       skip_before_filter :verify_authenticity_token
-      skip_before_action :authenticate_or_passthrough, only: [:promo_submit]
+      allow_oauth!
 
       def create
-        guid = params[:guid].strip || ''
-        if !guid || guid.empty?
-          return render_response false, 'Missing or invalid guid'
-        end
-
+        #validate phone
         phone = params[:phone].strip.gsub(/\D/, '') || ''
         if !phone || phone.empty?
           return render_response false, 'Missing or invalid phone'
         end
-
-        inviter = User.where("guid = ? OR guid_alt = ?", guid, guid)
-        if !inviter.any?
-          return render_response false, 'Invalid guid'
+        
+        #validate user
+        if current_user
+          inviter = current_user
+          inviter_name = name_or_email inviter
         else
-          inviter = inviter.first
+          return render_response false, 'Unauthorized user'
         end
-
-        invitee_phone = Profile.where({ phone: phone })
-        if invitee_phone.any?
-          return render_response false, 'Whoops, your friend already has an account!'
-          #else
-          #invitee = invitee.first
-        end
-
-        if inviter.is_accountant?
-          accountant = inviter
-        else
+        
+        #get associated accountant
+        if inviter.get_accountant
           accountant = inviter.get_accountant
-        end
-
-        if !accountant
+          accountant_name = name_or_email accountant
+        else
           return render_response false, 'No accountant found for inviting user'
         end
-
-        # at this point we have a phone, accountant, inviter, and invitee
-=begin
-        nu_email = "phone_#{phone}@autokept.com"
-        nu_phone = phone
-        nu_pass = phone[-4,4]
-        nu_guid = generate_guid(nu_email, nu_pass)
-        nu_guid_alt = generate_guid(nu_phone, nu_pass)
-        invitee = User.new({
-          email: nu_email,
-          phone: nu_phone,
-          password: nu_pass,
-          password_confirmation: nu_pass,
-          guid: nu_guid,
-          guid_alt: nu_guid_alt
-        })
-        invitee.roles = ["business_client"]
-        if invitee.save!
-          
-          invitee.group_memberships.create({ group_id: 3 })
-          accountant.relationships.create({ client_id: invitee.id })
-          accountant.save!
-          invitee.save!
-          profile = Profile.create({user_id: invitee.id, phone: nu_phone, show_personal_info_form: true })
         
-=end
-          share = Share.create({user_id: inviter.id, phone: phone, shared_at: Time.now })
-          
-          inviter_name = inviter.profile.first || inviter.email
+        #generate share code
+        share_code = loop do
+          code = (0...4).map { ('A'..'Z').to_a[rand(26)] }.join
+          break code unless Share.exists?(share_code: code)
+        end
         
-          template = accountant.templates.where({style: "invitation_text"}).first
-          if template.nil?
-            template = Template.where({style: "invitation_text", user_id: 4}).first
-          end
+        #create share and send sms
+        if Share.create({user_id: inviter.id, phone: phone, share_code: share_code})
                
-          message_body = "#{template.salutation}\n"
-          message_body += "#{inviter_name} #{template.body_one}\n\n"
+          message_body = "#{inviter_name} thought you might enjoy our app!\n\n"
           message_body += "Please install the app and SIGN UP by clicking this link:\nhttp://bit.ly/1M3Xf5Q\n\n"
-          message_body += "**Important Note: Make sure to enter phone number #{formated_phone phone} on the registration form.\n\n"
-          message_body += "#{template.body_two}\n\n#{template.closing}\n#{signature_value('invitation_text', inviter)}"
+          message_body += "**Important Note: Make sure to enter the share code:\n"
+          message_body += '"' + "#{share_code}" +'"' + "\n\n"
+          message_body += "The app is as simple as:\n"
+          message_body += " 1) Take a picture of the transaction\n"
+          message_body += "2) Talk about the transaction (as if you were telling your accountant about it)\n"
+          message_body += "3) Submit and you're done\n\n"
+          message_body += "Yes, you read that right: Picture - Talk - Submit, that's it!\n\n"
+          message_body += "Start by sending in some test submissions, and you'll have the hang of it in no time.\n\n"
+          message_body += "Thanks,\n#{accountant_name}"
 
-          if temp = send_invite_sms(phone, message_body)
+          if invitation = send_invite_sms(phone, message_body)
             return render_response true, 'SMS message sent successfully'
           else
-            return render_response false, "SMS message send failed: #{temp.inspect}"
+            return render_response false, "SMS message send failed: #{invitation.inspect}"
           end
-
+        else
+          return render_response false, "There was an error creating the share"
+        end
       end
 
       def detect_and_redirect
@@ -97,45 +69,13 @@ module Api
         end
       end
 
-
-      def promo_submit
-        number = params[:number].gsub(/[()-]/,'')
-        template = Template.where({user_id: 4, style: "invitation_text"}).first
-        message_body = "Thanks for your interest in AutoKept!\n\n"
-        message_body += "Please install the app and SIGN UP by clicking this link:\nhttp://bit.ly/1M3Xf5Q\n\n"
-        message_body += "**Important Note: Make sure to enter phone number #{params[:number]} on the registration form.\n\n"
-        message_body += "#{template.body_two}\n\n#{template.closing}\n#{template.signature}"
-
-        if send_invite_sms(number, message_body)
-          page = PromoPage.find(params[:page])
-          promo_share = PromoShare.where(phone: number).last
-          if promo_share.nil?
-            page.text_count += 1
-            page.save
-            PromoShare.create(phone: number, promo_page_id: page.id)
-          end
-
-          respond_to do |format|
-            format.js {render template: 'promo/success'}
-            format.html {redirect_to :back}
-          end          
-          return
-        else
-          respond_to do |format|
-            format.js {render template: 'promo/invalid'}
-            format.html {redirect_to :back}
-          end
-          return
-        end
-      end
-
       def send_invite_sms(dest_phone, sms_body)
         require 'twilio-ruby'
         
         account_sid = 'ACb5bfeb67ceedd54abb7594eb7842955f'
         auth_token = 'f01d5c5b83934c17e1feadc27639cbc7'
   
-        origin_phone = '+15203895694'
+        origin_phone = '+15202212153'
         destination_phone = dest_phone
 
         if destination_phone.size == 10

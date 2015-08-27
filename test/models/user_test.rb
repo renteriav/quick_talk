@@ -16,6 +16,10 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  roles_mask             :integer          default(4)
+#  first                  :string
+#  last                   :string
+#  phone                  :string
+#  count_of_shares        :integer
 #
 
 require 'test_helper'

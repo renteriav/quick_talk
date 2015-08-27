@@ -16,6 +16,10 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  roles_mask             :integer          default(4)
+#  first                  :string
+#  last                   :string
+#  phone                  :string
+#  count_of_shares        :integer
 #
 
 class User < ActiveRecord::Base
@@ -26,6 +30,7 @@ class User < ActiveRecord::Base
   has_one :qbo_client
   has_many :clients, through: :relationships, source: :user
   has_one :brand
+  has_many :shares
   
   ROLES = %i[admin accountant client]
   
@@ -64,6 +69,12 @@ class User < ActiveRecord::Base
 
   def is_client?
     self.has_role? "client"
+  end
+  
+  def full_name
+    !self.first.nil? ? first = self.first : first = ""
+    !self.last.nil? ? first = self.last : last = ""
+    return (first + " " + last).strip
   end
   
 end

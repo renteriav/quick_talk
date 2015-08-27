@@ -218,20 +218,12 @@ class QuickbooksController < ApplicationController
     if @created_purchase = service.create(purchase)
       @id = @created_purchase.id
       upload(@id)
-      render_response(true, "Upload succesfull")
+      render_response(true, "Upload succesfull", 200)
       #redirect_to quickbooks_index_path, notice: "Transaction Succesfully Saved."
     else 
-      render_response(false, "something went wrong")
+      render_response(false, "something went wrong", 500)
     end
 
-  end
-  
-  def render_response success, message
-    output = {
-      success: success,
-      message: message
-    }
-    render json: output.as_json
   end
 
   private

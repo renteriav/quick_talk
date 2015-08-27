@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150820162422) do
+ActiveRecord::Schema.define(version: 20150827005459) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,6 +75,29 @@ ActiveRecord::Schema.define(version: 20150820162422) do
 
   add_index "qbo_clients", ["realm_id"], name: "index_qbo_clients_on_realm_id", unique: true, using: :btree
 
+  create_table "relationships", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "client_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "relationships", ["user_id"], name: "index_relationships_on_user_id", using: :btree
+
+  create_table "shares", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "invitee_id"
+    t.string   "share_code"
+    t.string   "phone"
+    t.date     "accepted_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "shares", ["invitee_id"], name: "index_shares_on_invitee_id", unique: true, using: :btree
+  add_index "shares", ["share_code"], name: "index_shares_on_share_code", unique: true, using: :btree
+  add_index "shares", ["user_id"], name: "index_shares_on_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -89,6 +112,10 @@ ActiveRecord::Schema.define(version: 20150820162422) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.integer  "roles_mask",             default: 4
+    t.string   "first"
+    t.string   "last"
+    t.string   "phone"
+    t.integer  "count_of_shares"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
