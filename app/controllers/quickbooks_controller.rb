@@ -122,19 +122,20 @@ class QuickbooksController < ApplicationController
   
   def get_company_info
     @qbo_client = current_user.qbo_client
-    service = Quickbooks::Service::CompanyInfo.new
-    service.access_token = set_qb_service
-    service.company_id = @qbo_client.realm_id
-    @company = service.query(nil, :page => 1, :per_page => 500).first
-    @company_name = @company.company_name
+    if !@qbo_client.nil?
+      service = Quickbooks::Service::CompanyInfo.new
+      service.access_token = set_qb_service
+      service.company_id = @qbo_client.realm_id
+      @company = service.query(nil, :page => 1, :per_page => 500).first
+      @company_name = @company.company_name
+      return render_response(true, @company_name, 200)
+    else
+      return render_response(false, 'Unauthorized', 401)
+    end
   end
   
   def company_info
-    if get_company_info
-      render_response(true, @company_name, 200)
-    else
-      render_response(false, 'There has been an error', 500)
-    end
+    get_company_info
   end
  
   def upload(reference_id)

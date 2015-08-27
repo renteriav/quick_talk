@@ -31,6 +31,7 @@ class User < ActiveRecord::Base
   has_many :clients, through: :relationships, source: :user
   has_one :brand
   has_many :shares
+  has_many :relationships
   
   ROLES = %i[admin accountant client]
   
