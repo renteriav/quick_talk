@@ -25,7 +25,7 @@ gem 'carrierwave'
 gem 'cancancan', '~> 1.10'
 gem 'delayed_job_active_record'
 gem 'twilio-ruby' 
-#gem 'quickbooks-ruby', '0.2.3', :git => "https://github.com/renteriav/qb-ruby-2"
+gem 'quickbooks-ruby', '0.2.3', :git => "https://github.com/renteriav/qb-ruby-2"
 gem 'oauth-plugin'
 gem 'rails_12factor', group: :production
 gem 'utf8-cleaner'
