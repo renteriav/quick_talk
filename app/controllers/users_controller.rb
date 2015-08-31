@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     password = params[:password]
     password_confirmation = params[:password_confirmation]
     email = params[:email]
-    share_code = params[:share_code]   
+    share_code = params[:share_code].upcase   
     
     #check for pre-existing user
     preexisting_user = User.where({ email: email })
@@ -38,6 +38,7 @@ class UsersController < ApplicationController
         if share
           share.invitee_id = @user.id
           share.accepted_at = Time.now
+          share.share_code = nil
           if share.save
             return render_response(true, 'User created succesfully')
           else

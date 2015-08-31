@@ -8,10 +8,9 @@ module Api
       end
 
       def show
-
         client = current_user
 
-        accountant = current_user
+        accountant = current_user.get_accountant
         if accountant
           if accountant.brand
             brand = accountant.brand
@@ -31,22 +30,22 @@ module Api
               created_at: created_at,
               updated_at: updated_at
             }.as_json
-            render_response true, message, 123
+            render_response true, message, 200
           else
-            render_response(false, 'Accountant has no brand configured', nil)
+            render_response(false, 'Accountant has no brand configured', 500)
           end
         else
-          render_response(false, 'User has no accountant assigned', nil)
+          render_response(false, 'User has no accountant assigned', 500)
         end
       end
 
       private
 
-      def render_response success, message, access_token
+      def render_response success, message, status
         output = {
           success: success,
           message: message,
-          access_token: access_token
+          status: status
         }
         return render json: output.as_json
       end

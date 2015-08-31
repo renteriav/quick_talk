@@ -1,0 +1,30 @@
+<html>
+	<body>
+		Hi <%=@first_name%>,<br>
+		<br>
+		Thank you for joining QuickTalk, we are sure you will enjoy you're stay! : )<br>
+		<br>
+        Please click this link to customize your app right away:<br>
+        <a href='<%= "http://quick-talk.herokuapp.com/onboarding?access_token=#{@access_token}" %>'><%= "http://autokept.herokuapp.com/onboarding?access_token=#{@access_token}" %></a>
+        <br><br>
+        If you prefer you can also get started by loggin into your web portal by going to:<br>
+		 <a href="http://quick-talk.herokuapp.com">quick-talk.herokuapp.com</a>         <br><br>
+        And sign in with:<br>
+		<strong>Email:</strong> <%=@email%><br>
+		<strong>Password: </strong><%=@password%><br>
+		<br>
+		As soon as you log in please follow the instructional steps to get started, and in no time you'll have:<br>
+		1) Branded your app and web portal<br>
+		2) Set up your app on your phone<br>
+		3) And invited your clients to start using your new app<br>
+		<br>
+		It is that easy!<br>
+		<br>
+		Feel free to make changes at any time to the brand of your app in the 'Edit Branding' page.<br>
+		 <br>
+		Please let us know any questions you may have by replying to this email, we are right here.<br>
+		 <br>
+		Thank you,<br>
+		The QuickTalk Team<br>
+	</body>
+</html>

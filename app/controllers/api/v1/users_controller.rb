@@ -4,29 +4,6 @@ module Api
       skip_before_filter :verify_authenticity_token
       prepend_before_filter :allow_params_authentication!
       
-      def update
-        if current_user
-          @user = current_user
-            if @user.update_attributes(user_params)
-              return render_response(true, @user, nil)
-            else
-              return render_response(false, @user.errors.full_messages.first, nil)
-          end
-        end
-      end
-      
-      def update_profile
-          @user = User.find(current_user.id)
-          if @user.update(user_params)
-            respond_to do |format|
-              sign_in @user, :bypass => true
-              format.json { render json: @user, status: :ok }
-            end
-          else
-            respond_with @user
-          end
-      end
-      
       def sign_up
         password = params[:password]
         email = params[:email]
