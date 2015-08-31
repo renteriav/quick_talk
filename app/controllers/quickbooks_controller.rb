@@ -160,7 +160,7 @@ class QuickbooksController < ApplicationController
     service.company_id = @qbo_client.realm_id
 
     line_item = Quickbooks::Model::PurchaseLineItem.new
-    line_item.description = description
+    #line_item.description = description
     line_item.amount = amount
 
     line_item.account_based_expense! do |account|
@@ -174,6 +174,7 @@ class QuickbooksController < ApplicationController
     
     purchase.payment_type = "Cash"
     purchase.txn_date = date
+    purchase.private_note = description
     account_ref = Quickbooks::Model::BaseReference.new(bank_account_id)
     purchase.account_ref = account_ref
     if @created_purchase = service.create(purchase)
@@ -181,7 +182,7 @@ class QuickbooksController < ApplicationController
       vendor_service = Quickbooks::Service::Vendor.new
       vendor_service.access_token = set_qb_service
       vendor_service.company_id = @qbo_client.realm_id
-      vendor = vendor.fetch_by_id(entity_ref_id)
+      vendor = vendor_service.fetch_by_id(entity_ref_id)
       file_name = "#{vendor.display_name}-#{Time.now.strftime("%m-%d-%Y")}" 
       upload(@id, "Purchase", file_name)
       
@@ -297,7 +298,7 @@ class QuickbooksController < ApplicationController
     service.company_id = @qbo_client.realm_id
 
     line = Quickbooks::Model::Line.new
-    line.description = description
+    #line.description = description
     line.amount = amount
     
     sales_item_line_detail = Quickbooks::Model::SalesItemLineDetail.new
@@ -321,6 +322,7 @@ class QuickbooksController < ApplicationController
     customer = customer_service.fetch_by_id(customer_id)
     email = customer.primary_email_address
     sale.bill_email = email
+    sale.private_note = description
 
     if @created_sale = service.create(sale)
       @id = @created_sale.id
