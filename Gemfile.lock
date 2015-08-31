@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/renteriav/qb-ruby-2
-  revision: 49145025ae01621aedeb711d70346bd4b6389acc
+  revision: b388d6bf65a004c96f2b926d5f8cda493c21c2c9
   specs:
     quickbooks-ruby (0.2.3)
       activemodel
