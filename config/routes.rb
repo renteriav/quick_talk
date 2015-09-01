@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     end
   end
   
+  get 'onboarding', to: 'brands#onboarding'
+  
   get 'dashboard', to: 'dashboard#index'
   
   scope :quickbooks do

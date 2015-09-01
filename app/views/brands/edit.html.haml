@@ -1,7 +1,7 @@
 -@extra_class = "gradient-gray"
 .wrapper.wrapper-content
   .row
-    #phone-demo-container
+    #phone-demo-container.brand_editor
       =render "iphone_template"
 #logo-modal.modal.fade{"data-backdrop" => "false", "data-keyboard" => "false"}
   .modal-dialog.modal-sm
@@ -104,15 +104,6 @@
           .row
             .col-sm-12
               = f.submit "Save Changes", class: "btn btn-primary btn-block done margin-top-2x"
-#share-modal.modal.fade{"data-backdrop" => "false", "data-keyboard" => "false"}
-  .modal-dialog.modal-sm
-    .modal-content
-      .modal-header
-        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} &times;
-        %h1 Share Code
-      .modal-body
-        .lead.text-center
-          Your Share Code is 34B7Y
 #process-bar.modal.fade{"data-backdrop" => "false", "data-keyboard" => "false"}
   .modal-dialog
     .modal-content

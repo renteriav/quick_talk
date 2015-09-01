@@ -3,7 +3,6 @@ class QuickbooksController < ApplicationController
   rescue_from ::Exception, with: :error_occurred
   rescue_from Quickbooks::AuthorizationFailure, with: :unauthorized
 
-
   allow_oauth!
   skip_before_filter :verify_authenticity_token
   before_action :authenticate_user!, except: [:authenticate, :oauth_callback, :infusion]

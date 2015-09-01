@@ -1,47 +1,47 @@
-#wrapper
+#wrapper.gray-bg
   .row.wrapper.border-bottom.white-bg.page-heading
     .col-md-7
-      %h2{style: "margin:20px;"} Customize Your App
+      %h2{style: "margin-left:20px;"} Customize Your App
     .col-md-5.col-xs-12
   .wrapper.wrapper-content
     .row
-      .col-sm-7.col-md-5.col-md-offset-2.animated.fadeInRight
+      .col-sm-7.col-md-5.col-md-offset-1.animated.fadeInRight
         / multistep form
         #email-onboarding{style: "height:670px;"}        
           .form
             %legend
               %h3.text-left Info
             = form_for [@accountant, @brand], url: user_brand_path(user_id: @accountant.id), authenticity_token: true, html: {:multipart => true, id: "email-onboard-form"} do |f|
-              .form-group
+              .form-group.company-name
                 = f.label :company_name, "Company Name (required)"
                 = f.text_field :company_name, class: "form-control", autocomplete: "off", placeholder: "Company Name", required: :true, id: "brand-name-input"
-              .form-group
+              .form-group.company-website
                 = f.label :website, "Company Website"
                 = f.url_field :brand_website, class: "form-control", autocomplete: "off", placeholder: "http://www.name.com"
               .row
-                .form-group.col-sm-5.col-lg-4
+                .form-group.col-sm-5.col-lg-4.company-phone
                   = f.label :phone, "Company Phone"
                   = f.phone_field :brand_phone, class: "form-control phone-mask", autocomplete: "off", placeholder: "(xxx) xxx-xxxx", id: "brand-phone-input"
-                .form-group.col-sm-7.col-lg-8
+                .form-group.col-sm-7.col-lg-8.company-email
                   = f.label :email, "Company Email"
                   = f.email_field :brand_email, class: "form-control", autocomplete: "off", placeholder: "name@email.com", id: "brand-email-input"
               .row
-                .form-group.col-xs-6
+                .form-group.col-xs-6.logo-image
                   = f.label :logo_image, "Logo Image"
                   %span.btn.btn-block.btn-info.fileinput-button
                     %i.fa.fa-plus
                     %span Logo Image
                     = f.file_field :logo_image, class: "file"
-                .form-group.col-xs-6
+                .form-group.col-xs-6.profile-image
                   = f.label :logo_image, "Profile Image"
                   %span.btn.btn-block.btn-info.fileinput-button
                     %i.fa.fa-plus
                     %span Profile Image
                     = f.file_field :profile_image, class: "file"
-              .form-group
+              .form-group.header-line
                 = f.label :line_one, "Header Line One"
                 = f.text_field :line_one, class: "form-control", maxlength: "65", autocomplete: "off", placeholder: "First line of text"
-              .form-group
+              .form-group.header-line
                 = f.label :line_two, "Header Line Two"
                 = f.text_field :line_two, class: "form-control", maxlength: "65", autocomplete: "off", placeholder: "Second line of text"
               .form-group
@@ -49,10 +49,9 @@
                 = text_field_tag :onboard_phone, nil, class: "phone-mask form-control", autocomplete: "off", placeholder: "(xxx) xxx-xxxx"
                 = hidden_field_tag :email_onboarding, true
               .form-group
-                %a#email-onboard-submit.btn.btn-lg.btn-block.btn-primary Submit
+                %a#email-onboard-submit.btn.btn-lg.btn-block.btn-success Submit
       .col-sm-5
-        .spacer._55
-        #phone-demo-container.col-xs-12
+        #phone-demo-container.onboarding
           =render "iphone_template"
 #email-onboard-modal.modal.fade{"data-backdrop" => "static", "data-keyboard" => "false"}
   .modal-dialog.modal-lg
@@ -73,7 +72,7 @@
             %li
               Receive an email that you can edit and forward to your clients to invite them to use your new app
             %li
-              Be taken to your web portal where you can click around and see what it looks like
+              Be taken to your web portal where you can do things like editing your brand and personal information
           .row
             .spacer._21
-            %button#email-onboard-continue.btn.btn-lg.btn-primary.pull-right{"data-dismiss" => "modal"} Done!
+            %button#email-onboard-continue.btn.btn-lg.btn-success.pull-right{"data-dismiss" => "modal"} Done!

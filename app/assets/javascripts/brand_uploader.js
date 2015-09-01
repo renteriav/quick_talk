@@ -1,13 +1,13 @@
 $(document).ready(function(){
   
-  $('.editable').hover(function(){
+  $('.brand_editor .editable').hover(function(){
     $(this).addClass('grey-border glow');
   });
-  $('.editable').mouseleave(function(){
+  $('.brand_editor .editable').mouseleave(function(){
     $(this).removeClass('glow grey-border');
   });
   
-  $('#phone-demo-title').click(function(){
+  $('.brand_editor #phone-demo-title').click(function(){
     $('#phone-demo-container').tooltipster('disable');
     $('#misc-text-modal').modal('show');
   });
@@ -15,15 +15,15 @@ $(document).ready(function(){
       $('#phone-demo-container').tooltipster('enable');
   })
   
-  $('.logo-preview').click(function(){
+  $('.brand_editor .logo-preview').click(function(){
     $('#phone-demo-container').tooltipster('disable');
     $('#logo-modal').modal('show');
   });
-  $('#logo-modal').on('hidden.bs.modal', function () {
+  $('.brand_editor #logo-modal').on('hidden.bs.modal', function () {
       $('#phone-demo-container').tooltipster('enable');
   })
   
-  $('.avatar-preview').click(function(){
+  $('.brand_editor .avatar-preview').click(function(){
     $('#phone-demo-container').tooltipster('disable');
     $('#avatar-modal').modal('show');
   });
@@ -31,7 +31,7 @@ $(document).ready(function(){
       $('#phone-demo-container').tooltipster('enable');
   })
   
-  $('#phone-demo-website').click(function(){
+  $('.brand_editor #phone-demo-website').click(function(){
     $('#phone-demo-container').tooltipster('disable');
     $('#website-modal').modal('show');
   });
@@ -39,7 +39,7 @@ $(document).ready(function(){
       $('#phone-demo-container').tooltipster('enable');
   })
   
-  $('#phone-demo-phone').click(function(){
+  $('.brand_editor #phone-demo-phone').click(function(){
     $('#phone-demo-container').tooltipster('disable');
     $('#phone-modal').modal('show');
   });
@@ -47,7 +47,7 @@ $(document).ready(function(){
       $('#phone-demo-container').tooltipster('enable');
   })
   
-  $('#phone-demo-email').click(function(){
+  $('.brand_editor #phone-demo-email').click(function(){
     $('#phone-demo-container').tooltipster('disable');
     $('#email-modal').modal('show');
   });
@@ -55,17 +55,54 @@ $(document).ready(function(){
       $('#phone-demo-container').tooltipster('enable');
   })
   
-  $('#phone-demo-share').click(function(){
-    $('#phone-demo-container').tooltipster('disable');
-    $('#share-modal').modal('show');
-  });
-  $('#share-modal').on('hidden.bs.modal', function () {
-      $('#phone-demo-container').tooltipster('enable');
-  })
-  
   $('.done').click(function(){
     $('.modal').modal('hide');
   });
+    
+  //Onboarding
+  
+  $('#email-onboard-form .company-name, #email-onboard-form .logo-image').hover(function(){
+    $('.logo-preview').addClass('grey-border glow');
+  });
+  $('#email-onboard-form .company-name, #email-onboard-form .logo-image').mouseleave(function(){
+    $('.logo-preview').removeClass('glow grey-border');
+  });
+  
+  $('#email-onboard-form .profile-image').hover(function(){
+    $('.avatar-preview').addClass('grey-border glow');
+  });
+  $('#email-onboard-form .profile-image').mouseleave(function(){
+    $('.avatar-preview').removeClass('glow grey-border');
+  });
+  
+  $('#email-onboard-form .company-website').hover(function(){
+    $('#phone-demo-website').addClass('grey-border glow');
+  });
+  $('#email-onboard-form .company-website').mouseleave(function(){
+    $('#phone-demo-website').removeClass('glow grey-border');
+  });
+  
+  $('#email-onboard-form .company-phone').hover(function(){
+    $('#phone-demo-phone').addClass('grey-border glow');
+  });
+  $('#email-onboard-form .company-phone').mouseleave(function(){
+    $('#phone-demo-phone').removeClass('glow grey-border');
+  });
+  
+  $('#email-onboard-form .company-email').hover(function(){
+    $('#phone-demo-email').addClass('grey-border glow');
+  });
+  $('#email-onboard-form .company-email').mouseleave(function(){
+    $('#phone-demo-email').removeClass('glow grey-border');
+  });
+  
+  $('#email-onboard-form .header-line').hover(function(){
+    $('#phone-demo-title').addClass('grey-border glow');
+  });
+  $('#email-onboard-form .header-line').mouseleave(function(){
+    $('#phone-demo-title').removeClass('glow grey-border');
+  });
+  
   
 	$('#brand_line_one').keypress(function(e){
     var c = String.fromCharCode(e.which)
@@ -263,7 +300,7 @@ acceptFileTypes: /(\.|\/)(gif|jpe?g|png|bmp|JPG)$/i,
 		});
     
     //Tooltipster plugin
-    $('#phone-demo-container').tooltipster({
+    $('.brand_editor ').tooltipster({
       content: $('<center class="lead" style="padding:20px;">Click on any branding item to edit it.</center>'),
       theme: 'tooltipster-shadow',
       arrow: false,
@@ -272,13 +309,85 @@ acceptFileTypes: /(\.|\/)(gif|jpe?g|png|bmp|JPG)$/i,
       timer: 3000
     });
     
-    $('#phone-demo-container').tooltipster('show');
+    $('.brand_editor').tooltipster('show');
     
-    $('#phone-demo-container').mouseleave(function(){
-      $('#phone-demo-container').tooltipster('show');
+    $('.brand_editor').mouseleave(function(){
+      $('.brand_editor').tooltipster('show');
     });
     
-    $('#phone-demo-container').mouseenter(function(){
-      $('#phone-demo-container').tooltipster('hide');
+    $('.brand_editor').mouseenter(function(){
+      $('.brand_editor').tooltipster('hide');
     });
+    
+    //validation
+    
+    $('#email-onboard-form input').tooltipster({ 
+          trigger: 'custom',
+          onlyOne: false,
+          position: 'right',
+          theme: 'tooltipster-shadow'
+    });
+  
+    $('#email-onboard-form input').keyup(function(){
+      if($(this).val() == ""){
+        $(this).tooltipster('hide');
+      } 
+      });
+    
+    $( "#brand-form, #on-board, #email-onboard-form" ).validate({
+      rules:{
+        'onboard_phone':{
+          phoneUS:true,
+          required:false
+        },
+      
+        'brand[brand_phone]':{
+          phoneUS:true,
+          required:false
+        },
+        'brand[brand_email]':{
+          email:true,
+          required:false
+        },
+        'brand[brand_web_site]':{
+          required:false
+        },
+      },
+      messages: {
+        'brand[brand_web_site]': {
+          url: 'Please enter a valid URL including "http:// or https://"'
+        }
+      },
+      errorPlacement: function (error, element) {
+              $(element).tooltipster('update', $(error).text());
+              $(element).tooltipster('show');
+          },
+      success: function (label, element) {
+            $(element).tooltipster('hide');     
+         }
+     });
+   
+     $('#email-onboard-submit').click(function(){
+       if ($('#email-onboard-form').valid()){
+         $('#email-onboard-form input').tooltipster('hide');
+        $('#email-onboard-modal').modal('show'); 
+        //$('#email-onboard-form').submit();
+       }
+       else{
+         return false;
+       }
+     });
+     
+     $('#email-onboard-continue').click(function(){
+   		$('#wrapper').waitMe({
+   			effect: 'roundBounce',
+   			text: 'Please wait...',
+   			bg: 'rgba(255,255,255,0.7)',
+   			color:'#0f0f0f',
+   			sizeW:'',
+   			sizeH:'',
+   			//source: 'img.svg'
+   		});
+       $('#email-onboard-form').submit();
+     });
 });  

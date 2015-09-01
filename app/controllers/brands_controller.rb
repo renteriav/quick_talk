@@ -53,24 +53,24 @@ class BrandsController < ApplicationController
   end
   
   def onboarding
-    if params[:guid]
-      user = User.where("guid_alt = ?", params[:guid])
-      if user.any?
-        @accountant = user.first
+    #if params[:]
+      #user = User.where("guid_alt = ?", params[:guid])
+      #if user.any?
+        @accountant = current_user #user.first
         if @accountant.brand
           @brand = @accountant.brand
         else
           @brand = @accountant.build_brand(brand_params)
         end
         
-      else
-        redirect_to root_path
-        authenticate_user!
-      end
-    else
-      redirect_to root_path
-      authenticate_user!
-    end
+        #else
+        #redirect_to root_path
+        #authenticate_user!
+        #end
+    #else
+     # redirect_to root_path
+      #authenticate_user!
+      #end
   end
   
   def send_onboard_text
