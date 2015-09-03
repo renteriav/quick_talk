@@ -18,7 +18,6 @@ class BrandsController < ApplicationController
   end
 
   def create
-    # update handles everything
     @brand = current_user.build_brand(brand_params)
     respond_to do |format|
       if @brand.save
@@ -33,18 +32,18 @@ class BrandsController < ApplicationController
     @brand = current_user.brand
     respond_to do |format|
       if @brand.update_attributes(brand_params)
-        #if params[:email_onboarding]
-          #user = User.find(params[:user_id])
-          #send_onboard_text
-          #InvitationMailer.client_invite(user.email, user).deliver
-          #user.guid_alt = nil
-          #user.save
-          #format.html {redirect_to root_path}
-          #else
+        if params[:email_onboarding]
+          user = User.find(params[:user_id])
+          send_onboard_text
+          AccountantMailer.client_invite(user.email, user).deliver
+          user.single_use_token = nil
+          user.save
+          format.html {redirect_to root_path}
+        else
           format.js {render layout: false, action: 'update'}
           format.html { render action: "edit"}  
-          flash[:notice] = "App styles saved successfully"
-          #end
+          #flash[:notice] = "App styles saved successfully"
+        end
       else
         format.html { render action: "edit" }
         format.js { render action: 'update' }
@@ -53,22 +52,23 @@ class BrandsController < ApplicationController
   end
   
   def onboarding
-    #if params[:]
-      #user = User.where("guid_alt = ?", params[:guid])
-      #if user.any?
-        @accountant = current_user #user.first
+    #if params[:access_token]
+    user = User.first
+      #user = User.find_by single_use_token: params[:access_token]
+      if user
+        sign_in user
+        @accountant = user
         if @accountant.brand
           @brand = @accountant.brand
         else
           @brand = @accountant.build_brand(brand_params)
-        end
-        
-        #else
-        #redirect_to root_path
-        #authenticate_user!
-        #end
-    #else
-     # redirect_to root_path
+        end   
+      else
+        redirect_to root_path
+        authenticate_user!
+      end
+      #else
+      #redirect_to root_path
       #authenticate_user!
       #end
   end
@@ -77,12 +77,12 @@ class BrandsController < ApplicationController
     if params[:onboard_phone] and params[:onboard_phone].to_s.strip.gsub(/\D/, '').size == 10
     phone = params[:onboard_phone]
     @user = User.find(params[:user_id])
-    @name = @user.profile.first || @user.email
+    @name = @user.first || @user.email
     sms_body = "Hi #{@name},\n\n"
     sms_body += "Are you ready to check out your branded app on your own phone?\n\nWe thought so too!\n\nClick this link to install the app:\nhttp://bit.ly/1M3Xf5Q\n\nAnd log in with:\n"
     sms_body += "Username: #{@user.email}\n"
     sms_body += "Password: (the same password you use when you log into the online Web Portal)\n\n"
-    sms_body += "If you'd like any changes to your app, just go to the 'App Studio' page on your Web Portal and make the changes, then re-open the app to see the changes happen immediately.\n\nHave some fun with it!\n\nThanks again,\nThe AutoKept Team"
+    sms_body += "If you'd like any changes to your app, just go to the 'Brand Editor' page on your Web Portal and make the changes, then re-open the app to see the changes happen immediately.\n\nHave some fun with it!\n\nThanks again,\nThe QuickTalk Team"
     end
 
     if phone

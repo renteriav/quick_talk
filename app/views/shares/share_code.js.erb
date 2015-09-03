@@ -1,0 +1,5 @@
+$(document).ready(function(){
+  var shareCode = <%= raw @share.share_code.to_json %>
+  $('#share-code').text(shareCode);
+  $('#share-code-modal').modal('show');
+});

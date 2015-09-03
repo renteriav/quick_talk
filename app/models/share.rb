@@ -14,7 +14,14 @@
 
 class Share < ActiveRecord::Base
 	belongs_to :user, counter_cache: :count_of_shares
-  #include Codable
+  
+  validates_presence_of :phone
+  
+  before_validation :strip_phone
+  
+  before_save do
+    self.share_code = create_share_code
+  end
 
 	def after_save
 	  self.update_counter_cache
@@ -33,4 +40,18 @@ class Share < ActiveRecord::Base
 	  self.user.count_of_shares = shares.count
 	  self.user.save
 	end
+  
+  private
+    def strip_phone
+      self.phone = self.phone.strip.gsub(/\D/, '')
+    end
+    
+    def create_share_code
+      share_code = loop do
+        code = (0...4).map { ('A'..'Z').to_a[rand(26)] }.join
+        break code unless Share.exists?(share_code: code)
+      end
+      return share_code
+    end
+  
 end

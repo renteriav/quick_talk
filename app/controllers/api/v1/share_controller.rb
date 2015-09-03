@@ -2,6 +2,7 @@ module Api
   module V1
     class ShareController < ApplicationController
       include Namer
+      include ShareCreator
       skip_before_filter :verify_authenticity_token
       allow_oauth!
 
@@ -10,6 +11,10 @@ module Api
         phone = params[:phone].strip.gsub(/\D/, '') || ''
         if !phone || phone.empty?
           return render_response false, 'Missing or invalid phone'
+        end
+        existing_phone = User.find_by phone: phone
+        if existing_phone
+          return render_response false, 'Whoops, your friend already has an account!'
         end
         
         #validate user
@@ -28,35 +33,21 @@ module Api
           return render_response false, 'No accountant found for inviting user'
         end
         
-        #generate share code
-        share_code = loop do
-          code = (0...4).map { ('A'..'Z').to_a[rand(26)] }.join
-          break code unless Share.exists?(share_code: code)
-        end
-        
-        #create share and send sms
-        if Share.create({user_id: inviter.id, phone: phone, share_code: share_code})
-               
-          message_body = "#{inviter_name} thought you might enjoy our app!\n\n"
-          message_body += "Please install the app and SIGN UP by clicking this link:\nhttp://bit.ly/1M3Xf5Q\n\n"
-          message_body += "**Important Note: Make sure to enter the share code:\n"
-          message_body += '"' + "#{share_code}" +'"' + "\n\n"
-          message_body += "The app is as simple as:\n"
-          message_body += " 1) Take a picture of the transaction\n"
-          message_body += "2) Talk about the transaction (as if you were telling your accountant about it)\n"
-          message_body += "3) Submit and you're done\n\n"
-          message_body += "Yes, you read that right: Picture - Talk - Submit, that's it!\n\n"
-          message_body += "Start by sending in some test submissions, and you'll have the hang of it in no time.\n\n"
-          message_body += "Thanks,\n#{accountant_name}"
-
-          if invitation = send_invite_sms(phone, message_body)
-            return render_response true, 'SMS message sent successfully'
+        share = Share.new
+        share.phone = phone
+        share.user_id = inviter.id
+        if share.save
+          message_body = share_message_body(accountant_name, share.share_code, accountant_name)
+          if invitation = send_sms(phone, message_body)
+            Rails.logger.info "==============> Share SMS Sent Succesfully"
           else
-            return render_response false, "SMS message send failed: #{invitation.inspect}"
+            Rails.logger.info "==============> Share SMS failed: #{invitation.inspect}"
           end
+          return render_response true, 'Share successfully created'
         else
-          return render_response false, "There was an error creating the share"
+          return render_response false, 'Share could not be created'
         end
+  
       end
 
       def detect_and_redirect
@@ -67,32 +58,6 @@ module Api
         else
           return render text: 'please open this link on a mobile device'
         end
-      end
-
-      def send_invite_sms(dest_phone, sms_body)
-        require 'twilio-ruby'
-        
-        account_sid = 'ACb5bfeb67ceedd54abb7594eb7842955f'
-        auth_token = 'f01d5c5b83934c17e1feadc27639cbc7'
-  
-        origin_phone = '+15202212153'
-        destination_phone = dest_phone
-
-        if destination_phone.size == 10
-          destination_phone = "+1#{destination_phone}"
-        end
-
-        # set up a client to talk to the Twilio REST API 
-        @client = Twilio::REST::Client.new account_sid, auth_token 
-         
-        @client.messages.create({
-          from: origin_phone,
-          to: destination_phone,
-          body: sms_body
-        })
-        return true
-      rescue
-        return false
       end
 
       private

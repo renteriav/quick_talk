@@ -15,4 +15,3 @@
 //= require sweetalert
 //= require shadow_animation
 //= require mask
-//= require api

@@ -74,7 +74,7 @@ class User < ActiveRecord::Base
   
   def full_name
     !self.first.nil? ? first = self.first : first = ""
-    !self.last.nil? ? first = self.last : last = ""
+    !self.last.nil? ? last = self.last : last = ""
     return (first + " " + last).strip
   end
   

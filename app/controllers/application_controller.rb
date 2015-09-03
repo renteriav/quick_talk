@@ -22,6 +22,10 @@ class ApplicationController < ActionController::Base
     request.format = :mobile if mobile_device?
   end
   
+  def generate_token
+    SecureRandom.urlsafe_base64(16)
+  end
+  
   protected
 
   def layout_by_resource
@@ -30,6 +34,32 @@ class ApplicationController < ActionController::Base
     else
       "application"
     end
+  end
+  
+  def send_sms(dest_phone, sms_body)
+    require 'twilio-ruby'
+    
+    account_sid = 'ACb5bfeb67ceedd54abb7594eb7842955f'
+    auth_token = 'f01d5c5b83934c17e1feadc27639cbc7'
+
+    origin_phone = '+15202212153'
+    destination_phone = dest_phone
+
+    if destination_phone.size == 10
+      destination_phone = "+1#{destination_phone}"
+    end
+
+    # set up a client to talk to the Twilio REST API 
+    @client = Twilio::REST::Client.new account_sid, auth_token 
+     
+    @client.messages.create({
+      from: origin_phone,
+      to: destination_phone,
+      body: sms_body
+    })
+    return true
+  rescue
+    return false
   end
   
 end

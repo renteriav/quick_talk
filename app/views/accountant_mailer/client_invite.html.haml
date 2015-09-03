@@ -1,0 +1,31 @@
+!!!
+%html
+  %head
+  %body
+    %div
+      %p{:style => "font-family: 'open sans', 'Helvetica Neue'; font-size: 18px; font-weight:400; line-height: 1.4;"}
+        Dear Client,
+      %p.lead{:style => "font-family: 'open sans', 'Helvetica Neue'; font-size: 16px; line-height: 1.4; color: rgb(103, 106, 108);"}
+        I just wanted to let you know that we have a new app! This app will make both of our lives much easier and give you the fastest way to send and store your accounting transactions into Quickbooks Online throughout the year, so come tax time there could be no missed deductions or looking for lost receipts.
+        %br
+        %br
+        The app is as simple as:
+        %br
+        Step 1 - Take a picture of the transaction.
+        %br
+        Step 2 - Talk about the transaction as if you were telling me about it.
+        %br
+        Step 3 - Submit and you're done.
+        %br
+        
+      %p.lead{:style => "font-family: 'open sans', 'Helvetica Neue'; font-size: 16px; line-height: 1.4; color: rgb(103, 106, 108);"}
+        To get started using the app right away, please click this link and enter the mobile phone number you want your app installed at:
+        %br
+        %a{:href => "http://quick-talk.herokuapp.com/shares/new?token=#{@user.share_token}"}
+          %strong.wrap-text
+            = raw("http://quick-talk.herokuapp.com/shares/new?token=#{@user.share_token}")
+      %p.lead{:style => "font-family: 'open sans', 'Helvetica Neue'; font-size: 16px; line-height: 1.4; color: rgb(103, 106, 108);"}
+        Sincerely, 
+        %br
+        %em{:style => "font-family: Georgia; font-size:16px"}
+          =@user.full_name

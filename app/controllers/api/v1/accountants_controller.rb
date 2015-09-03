@@ -47,6 +47,10 @@ module Api
         
         end
         
+        #generate tokens
+        accountant.share_token = generate_token
+        accountant.single_use_token = generate_token
+        
         # build accountant brand
         accountant.build_brand({company_name: company_name, brand_email: email, brand_phone: phone})
         accountant.roles = ["accountant", "client"]
@@ -59,7 +63,7 @@ module Api
         accountant.relationships.build({ client_id: accountant.id })
 
         if accountant.save!
-          access_token = "34567"
+          access_token = accountant.single_use_token
          AccountantMailer.accountant_signed_up(email, access_token, first, password).deliver
          return render_response true, 'accountant created and linked successfully'
         else

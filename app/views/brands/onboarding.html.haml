@@ -76,3 +76,23 @@
           .row
             .spacer._21
             %button#email-onboard-continue.btn.btn-lg.btn-success.pull-right{"data-dismiss" => "modal"} Done!
+#onboard-welcome.modal.fade{ "data-keyboard" => "false"}
+  .modal-dialog
+    .modal-content
+      .modal-body.white-bg.rounded
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} &times;
+        .jumbotron.white-bg.jumbotron-xs-no-padding
+          %h1.text-center.text-success Welcome
+          %br
+          %p 
+            The first step is to customize your app, it's as simple as filling out the form to the left.
+            %br
+            %br
+            As you hover over the fields you will see a yellow highlighted box appear on the app preview to the right, this indicates where that information translates to on your app as you customize it.
+            %br
+            %br
+            To note: the 'Logo Image' will replace the company name at the top.
+            %br
+            %br
+            Let us know if you have any questions: support@quicktalk.biz

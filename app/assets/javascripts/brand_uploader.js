@@ -151,6 +151,12 @@ $(document).ready(function(){
   });
   
   $('.phone-mask').mask('(999) 999-9999');
+  $('.phone-mask').on('keypress', function(e){
+    return e.metaKey || // cmd/ctrl
+      e.which <= 0 || // arrow keys
+      e.which == 8 || // delete key
+      /[0-9]/.test(String.fromCharCode(e.which)); // numbers
+  })
   
   $.fn.previewImage = function (imgContainer) {
      	var preview = $(imgContainer);
@@ -371,7 +377,6 @@ acceptFileTypes: /(\.|\/)(gif|jpe?g|png|bmp|JPG)$/i,
        if ($('#email-onboard-form').valid()){
          $('#email-onboard-form input').tooltipster('hide');
         $('#email-onboard-modal').modal('show'); 
-        //$('#email-onboard-form').submit();
        }
        else{
          return false;
@@ -390,4 +395,8 @@ acceptFileTypes: /(\.|\/)(gif|jpe?g|png|bmp|JPG)$/i,
    		});
        $('#email-onboard-form').submit();
      });
+     
+ 		$(window).load(function(){
+ 		  $('#onboard-welcome').modal('show');
+ 		});
 });  
