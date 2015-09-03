@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     end
   end
   
+  resources :shares
+  
   get 'onboarding', to: 'brands#onboarding'
   
   get 'dashboard', to: 'dashboard#index'
@@ -33,6 +35,7 @@ Rails.application.routes.draw do
     get :customers, to: 'quickbooks#customers', as: :quickbooks_customers
     get :company_info, to: 'quickbooks#company_info', as: :quickbooks_company_info
     get :infusion, to: 'quickbooks#infusion', as: :quickbooks_infusion
+    get :changed_entities, to: 'quickbooks#changed_entities', as: :quickbooks_changed_entities
   end
 
   # mobile uploader endpoint
