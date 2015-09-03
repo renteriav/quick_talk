@@ -63,35 +63,46 @@ class QuickbooksController < ApplicationController
     secret = client.secret
     realm_id = client.realm_id
     oauth_client = OAuth::AccessToken.new($qb_oauth_consumer, token, secret)
-    url = "https://sandbox-quickbooks.api.intuit.com/v3/company/#{realm_id}/cdc?entities=Item,Customer,PaymentMethod,Vendor,Account&changedSince=2015-08-20T22:25:51-07:00"
+    #time_stamp = (Time.now - 1.day).iso8601
+    timestamp = params[:timestamp]
+    url = "https://sandbox-quickbooks.api.intuit.com/v3/company/#{realm_id}/cdc?entities=Item,Customer,PaymentMethod,Vendor,Account&changedSince=#{timestamp}"
     @response = oauth_client.get(url)
     @parsed_response = Hash.from_xml(@response.body)
-    @response_array = @parsed_response["IntuitResponse"]["CDCResponse"]["QueryResponse"]
-    item = false
-    customer = false
-    payment_method = false
-    vendor = false
-    account = false
-    
-    @response_array.each do |entry|
-      if entry 
-        if entry["Item"]
-          item = true
-        elsif entry["Customer"]
-          customer = true
-        elsif entry["PaymentMethod"]
-          payment_method = true
-        elsif entry["Vendor"]
-          vendor = true
-        elsif entry["Account"]
-          account = true
+    @error =  @parsed_response["IntuitResponse"]["Fault"]
+    if !@error.nil?
+      @code = @error["Error"]["code"]
+      if @code == "3200"
+        render_response(false, 'Unauthorized', 401)
+      else
+        render_response(false, 'There has been an error', 500)
+      end
+    else
+      @response_array = @parsed_response["IntuitResponse"]["CDCResponse"]["QueryResponse"]
+      item = false
+      customer = false
+      payment_method = false
+      vendor = false
+      account = false
+  
+      @response_array.each do |entry|
+        if entry 
+          if entry["Item"]
+            item = true
+          elsif entry["Customer"]
+            customer = true
+          elsif entry["PaymentMethod"]
+            payment_method = true
+          elsif entry["Vendor"]
+            vendor = true
+          elsif entry["Account"]
+            account = true
+          end
         end
       end
+  
+      output = {item: item, customer: customer, payment_method: payment_method, vendor: vendor, account: account}
+      #return render json: output.as_json
     end
-    
-    output = {item: item, customer: customer, payment_method: payment_method, vendor: vendor, account: account}
-    return render json: output.as_json
-
   end
   
   #expenses
