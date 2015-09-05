@@ -23,6 +23,10 @@ Rails.application.routes.draw do
     get '/disconnect', to: 'quickbooks#disconnect', as: :quickbooks_disconnect
     get :oauth_callback, to: 'quickbooks#oauth_callback'
     get :success, to: 'quickbooks#success', as: :quickbooks_success
+    get :new_customer, to: 'quickbooks#new_customer'
+    post :create_vendor, to: 'quickbooks#create_vendor'
+    get :new_vendor, to: 'quickbooks#new_vendor'
+    post :create_customer, to: 'quickbooks#create_customer'
     get :purchase, to: 'quickbooks#purchase'
     post :create_purchase, to: 'quickbooks#create_purchase'
     get :sale, to: 'quickbooks#sale'

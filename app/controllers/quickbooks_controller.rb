@@ -171,6 +171,56 @@ class QuickbooksController < ApplicationController
     @vendors = Hash[@vendors.sort]
   end
   
+  def new_customer
+  end
+  
+  def create_customer
+    @qbo_client = current_user.qbo_client
+    
+    if params[:name]
+      name = params[:name]
+    end
+
+    customer = Quickbooks::Model::Customer.new
+    service = Quickbooks::Service::Customer.new
+    service.access_token = set_qb_service
+    service.company_id = @qbo_client.realm_id
+
+    customer.display_name = name
+
+    if @created_customer = service.create(customer)
+
+      render_response(true, "Customer created succesfully", 200)
+    else 
+      render_response(false, "something went wrong", 500)
+    end
+  end
+  
+  def new_vendor
+  end
+  
+  def create_vendor
+    @qbo_client = current_user.qbo_client
+    
+    if params[:name]
+      name = params[:name]
+    end
+
+    vendor = Quickbooks::Model::Vendor.new
+    service = Quickbooks::Service::Vendor.new
+    service.access_token = set_qb_service
+    service.company_id = @qbo_client.realm_id
+
+    vendor.display_name = name
+
+    if @created_vendor = service.create(vendor)
+
+      render_response(true, "Vendor created succesfully", 200)
+    else 
+      render_response(false, "something went wrong", 500)
+    end
+  end
+  
   def purchase
     @qbo_client = current_user.qbo_client
     @realm_id = @qbo_client.realm_id
