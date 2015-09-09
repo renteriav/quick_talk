@@ -474,7 +474,6 @@ class QuickbooksController < ApplicationController
       render_response(true, address, 200)
       puts sent_receipt.email_status
       puts sent_receipt.delivery_info.delivery_time
-      puts "#{@file_name}"
     else
       render_response(true, "There was an error sending the email", 500)
     end
