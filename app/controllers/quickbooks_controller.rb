@@ -465,17 +465,19 @@ class QuickbooksController < ApplicationController
         customer = customer_service.fetch_by_id(customer_id)
         customer.email_address = email
         address = email
-        render_response(true, address, 500)
       end
     else
       address = bill_email.address
-      render_response(true, address, 500)
     end
         
-      sent_receipt = sales_receipt_service.mail(sales_receipt.id, address)
+    if sent_receipt = sales_receipt_service.mail(sales_receipt.id, address)
+      render_response(true, address, 200)
       puts sent_receipt.email_status
       puts sent_receipt.delivery_info.delivery_time
       puts "#{@file_name}"
+    else
+      render_response(true, "There was an error sending the email", 500)
+    end
   end
   
   def receipt
