@@ -40,6 +40,8 @@ Rails.application.routes.draw do
     get :company_info, to: 'quickbooks#company_info', as: :quickbooks_company_info
     get :infusion, to: 'quickbooks#infusion', as: :quickbooks_infusion
     get :changed_entities, to: 'quickbooks#changed_entities', as: :quickbooks_changed_entities
+    get :send_receipt_email, to: 'quickbooks#send_receipt_email', as: :quickbooks_send_receipt_email
+    get :receipt, to: 'quickbooks#receipt'
   end
 
   # mobile uploader endpoint

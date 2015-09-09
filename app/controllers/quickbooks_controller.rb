@@ -291,7 +291,6 @@ class QuickbooksController < ApplicationController
   #sales
   def get_payment_methods
     @qbo_client = current_user.qbo_client
-    purchase = Quickbooks::Model::PaymentMethod.new
     service = Quickbooks::Service::PaymentMethod.new
     service.access_token = set_qb_service
     service.company_id = @qbo_client.realm_id
@@ -314,7 +313,6 @@ class QuickbooksController < ApplicationController
   
   def get_items
     @qbo_client = current_user.qbo_client
-    purchase = Quickbooks::Model::Item.new
     service = Quickbooks::Service::Item.new
     service.access_token = set_qb_service
     service.company_id = @qbo_client.realm_id
@@ -337,7 +335,6 @@ class QuickbooksController < ApplicationController
   
   def get_customers
     @qbo_client = current_user.qbo_client
-    purchase = Quickbooks::Model::Customer.new
     service = Quickbooks::Service::Customer.new
     service.access_token = set_qb_service
     service.company_id = @qbo_client.realm_id
@@ -417,7 +414,12 @@ class QuickbooksController < ApplicationController
     customer_service.company_id = @qbo_client.realm_id
     customer = customer_service.fetch_by_id(customer_id)
     email = customer.primary_email_address
-    sale.bill_email = email
+    
+    if email
+      sale.bill_email = email
+      address = email.address
+    end
+    
     sale.private_note = description
 
     if @created_sale = service.create(sale)
@@ -425,20 +427,73 @@ class QuickbooksController < ApplicationController
       @file_name = "#{customer.display_name}-#{Time.now.strftime("%m-%d-%Y")}" 
       upload(@id, "SalesReceipt", @file_name)
       
-      sales_receipt_service = Quickbooks::Service::SalesReceipt.new
-      sales_receipt_service.access_token = set_qb_service
-      sales_receipt_service.company_id = @qbo_client.realm_id
-      sales_receipt = sales_receipt_service.fetch_by_id(@id)
-      sent_receipt = sales_receipt_service.mail(sales_receipt.id, email.address)
-
-      puts sent_receipt.email_status
-      puts sent_receipt.delivery_info.delivery_time
-      puts "#{@file_name}"
-
-      render_response(true, "Upload succesfull", 200)
+      output = {
+        success: true,
+        message: "Upload succesfull",
+        status: 200,
+        receipt_id: @id,
+        customer_id: customer_id,
+        email: address
+      }
+      return render json: output.as_json
+      #render_response(true, "Upload succesfull", 200)
     else 
       render_response(false, "something went wrong", 500)
     end
+  end
+  
+  def send_receipt_email
+    @qbo_client = current_user.qbo_client
+    receipt_id = params[:receipt_id]
+    customer_id = params[:customer_id]
+    email = params[:email]
+    
+    sales_receipt_service = Quickbooks::Service::SalesReceipt.new
+    sales_receipt_service.access_token = set_qb_service
+    sales_receipt_service.company_id = @qbo_client.realm_id
+    sales_receipt = sales_receipt_service.fetch_by_id(receipt_id)
+      
+    bill_email = sales_receipt.bill_email
+    
+    if bill_email.nil? 
+      if email.nil? || email == ""
+        render_response(false, "Customer does not have an email address and an email was not provided", 500)
+      else
+        customer_service = Quickbooks::Service::Customer.new
+        customer_service.access_token = set_qb_service
+        customer_service.company_id = @qbo_client.realm_id
+        customer = customer_service.fetch_by_id(customer_id)
+        customer.email_address = email
+        address = email
+        render_response(true, address, 500)
+      end
+    else
+      address = bill_email.address
+      render_response(true, address, 500)
+    end
+        
+      sent_receipt = sales_receipt_service.mail(sales_receipt.id, address)
+      puts sent_receipt.email_status
+      puts sent_receipt.delivery_info.delivery_time
+      puts "#{@file_name}"
+  end
+  
+  def receipt
+    #@id = 298
+    @qbo_client = current_user.qbo_client
+    service = Quickbooks::Service::SalesReceipt.new
+    service.access_token = set_qb_service
+    service.company_id = @qbo_client.realm_id
+    #sales_receipt = service.fetch_by_id(@id)
+    receipts = service.query(nil, :page => 1, :per_page => 500)
+    @receipts_entries = receipts.entries
+    @receipts = Hash.new
+    @receipts_entries.each do |receipt|
+    @receipts[receipt.id] = receipt.id.to_i 
+  end
+    @receipts = Hash[@receipts.sort]  
+    render_response(true, @receipts, 200)
+     
   end
  
   #upload
