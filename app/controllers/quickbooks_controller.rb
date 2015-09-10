@@ -100,7 +100,7 @@ class QuickbooksController < ApplicationController
         end
       end
   
-      output = {item: item, customer: customer, payment_method: payment_method, vendor: vendor, account: account}
+      output = {item: item, customer: customer, payment_method: payment_method, vendor: vendor, account: account, status: 200}
       return render json: output.as_json
     end
   end
